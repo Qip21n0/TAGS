@@ -7,3 +7,6 @@ Commands used by the TA for grading
 - [Python: コマンドラインパーサの Click が便利すぎた](https://blog.amedama.jp/entry/2015/10/14/232045)
 - [Welcome to Click — Click Documentation (8.0.x)](https://click.palletsprojects.com/en/8.0.x/)
 - [Python clickの案外知られていない機能](https://qiita.com/cvusk/items/fcda5e77350f248d39e5)
+
+- [PyInstaller Manual — PyInstaller 4.8 documentation](https://pyinstaller.readthedocs.io/en/stable/)
+- [PyInstallerによるPythonスクリプトのexe化とエラー対処方法まとめ](https://qiita.com/kunishou/items/b2e8754886107292926d)
