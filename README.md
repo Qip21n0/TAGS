@@ -9,6 +9,11 @@ Commands used by the TA for grading
 - [Welcome to Click — Click Documentation (8.0.x)](https://click.palletsprojects.com/en/8.0.x/)
 - [Python clickの案外知られていない機能](https://qiita.com/cvusk/items/fcda5e77350f248d39e5)
 
+## GNU readline
+- [readline --- GNU readline のインターフェース - 公式ドキュメント](https://docs.python.org/ja/3/library/readline.html)
+- [readline – GNU readline ライブラリのインタフェース - PyMOTW](https://ja.pymotw.com/2/readline/)
+- [pythonでinput()にいい感じで補完を効かせたい - Qiita](https://qiita.com/karno/items/e06e649f2a939c05b460)
+
 ## PyInstaller
 - [PyInstaller Manual — PyInstaller 4.8 documentation](https://pyinstaller.readthedocs.io/en/stable/)
 - [PyInstallerによるPythonスクリプトのexe化とエラー対処方法まとめ](https://qiita.com/kunishou/items/b2e8754886107292926d)
