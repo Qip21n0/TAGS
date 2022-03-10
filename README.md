@@ -2,6 +2,15 @@
 Commands used by the TA for grading
 
 # Link
+
+## File Download
+- [Python + Selenium + Chrome でファイル保存まわり - Qiita](https://qiita.com/memakura/items/f80d2e2c59514cfc14c9)
+- [Seleniumで指定フォルダにダウンロード + ファイルを指定のフォルダに移動する [Pythonチートシート]](https://life100create.com/selenium_download_move_file/)
+- [Pythonのファイルダウンロードにはurlretrieveではなくurlopenを使うべき理由 - Qiita](https://qiita.com/Kanahiro/items/dd585599f36a77540439)
+- [Pythonでインターネットからファイルをダウンロードする](https://laboratory.kazuuu.net/download-files-from-tools-in-python/)
+- [Python でファイルをダウンロードする](https://www.delftstack.com/ja/howto/python/download-a-file-in-python/)
+- [【Python+selenium+beautifulsoup】note.comをスクレイピングする方法](https://note.com/karupoimou/n/n28e52e2939da)
+
 ## Click
 - [Pythonでオリジナルのコマンドを実装してみる【前編】](https://qiita.com/KizashiTakata/items/3c0e632db7b662f88f57)
 - [Pythonでオリジナルのコマンドを実装してみる【後編】](https://qiita.com/KizashiTakata/items/d062929e93ae43164c41)
