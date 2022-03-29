@@ -23,6 +23,12 @@ Commands used by the TA for grading
 - [readline – GNU readline ライブラリのインタフェース - PyMOTW](https://ja.pymotw.com/2/readline/)
 - [pythonでinput()にいい感じで補完を効かせたい - Qiita](https://qiita.com/karno/items/e06e649f2a939c05b460)
 
+## Cmd
+- [cmd --- 行指向のコマンドインタープリタのサポート - 公式ドキュメント](https://docs.python.org/ja/3/library/cmd.html)
+- [Python Cmdモジュールを使ってみる - Qiita](https://qiita.com/ssatoru/items/bfd913ef7dc3f16fcab8)
+- [CmdモジュールでPythonコマンドラインのコマンドとサブコマンドをタブで補完する](https://ysss.hateblo.jp/entry/20190602/1559403393)
+- [cmd – Create line-oriented command processors](http://pymotw.com/2/cmd/)
+
 ## PyInstaller
 - [PyInstaller Manual — PyInstaller 4.8 documentation](https://pyinstaller.readthedocs.io/en/stable/)
 - [PyInstallerによるPythonスクリプトのexe化とエラー対処方法まとめ](https://qiita.com/kunishou/items/b2e8754886107292926d)
