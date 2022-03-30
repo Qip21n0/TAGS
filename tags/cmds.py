@@ -25,7 +25,7 @@ def config(change):
 		change_config()
 	else:
 		home = os.path.expanduser('~/')
-		if home+'tags_config.txt' not in glob.glob(home+'*.txt'):
+		if home+'tags_config.json' not in glob.glob(home+'*.json'):
 			set_config()
 
 		else:

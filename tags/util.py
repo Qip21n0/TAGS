@@ -1,10 +1,11 @@
+import json
 import sys
 import re
 import os
 
 
 
-PATH = os.path.expanduser('~/') + 'tags_config.txt'
+PATH = os.path.expanduser('~/') + 'tags_config.json'
 
 def normalize_func_doc(func):
 	return re.sub('\t', '', func.__doc__)
@@ -12,6 +13,27 @@ def normalize_func_doc(func):
 
 def set_config():
 	print("Start setting for TAGS system.")
+	data = {}
+
+	url = input("Enter the url of the class submission page.\n")
+	data['url'] = url
+	print()
+
+	while 1:
+		id = input("Enter your student id. (ex. abc123456)\n")
+		id_ = input("Enter your student id again.\n")
+		print()
+		if id == id_:
+			break
+	while 1:
+		psswd = input("Enter your student password.\n")
+		psswd_ = input("Enter your student password again.\n")
+		print()
+		if psswd == psswd_:
+			break
+	data['id'] = id
+	data['psswd'] = psswd
+
 
 	print("Enter a list of all the student numbers for the classes you are responsible for as TA.")
 	print("This form stops when a blank character is entered.")
@@ -21,27 +43,50 @@ def set_config():
 		if num == '':
 			break
 		else:
-			student_id.append(num)
+			student_id.append(int(num))
+	data['student_id'] = student_id
 
 	with open(PATH, 'w') as f:
-		f.write('\n'.join(student_id))
-	
+		json.dump(data, f, indent=4)
 
 
 def get_config():
-	student_id = []
 	with open(PATH, 'r') as f:
-		lines = f.read()
-		for line in lines.split("\n"):
-			if line != '':
-				student_id.append(line)
+		data = json.load(f)
 	
-	return student_id
-	
+	return data
 
 
 def change_config():
-	student_id = get_config()
+	data = get_config()
+
+	print("url: " + data['url'])
+	url = input("If you modify the URL, enter the correct one.")
+	data['url'] = url
+
+
+	print("Your ID: " + data['id'])
+	print("Your Password: " + data['psswd'])
+	flag = input("Could you change your ID or password? [y/n]\n")
+	while flag not in ['y', 'n']:
+		flag = input('Enter y or n\n')
+	if flag == 'y':
+		while 1:
+			id = input("Enter new your student id. (ex. abc123456)\n")
+			id_ = input("Enter new your student id again.\n")
+			print()
+			if id == id_:
+				break
+		while 1:
+			psswd = input("Enter new your student password.\n")
+			psswd_ = input("Enter new your student password again.\n")
+			print()
+			if psswd == psswd_:
+				break
+		data['id'] = id
+		data['psswd'] = psswd
+
+	student_id = data['student_id']
 	for i, v in enumerate(student_id):
 		print(f'[{i}]: {v}')
 	
@@ -62,6 +107,7 @@ def change_config():
 			else:
 				print("ERROR: The index you entered is not correct.")
 				sys.exit(0)
+	data['student_id'] = student_id
 
 	with open(PATH, 'w') as f:
-		f.write('\n'.join(student_id))
+		json.dump(data, f, indent=4)

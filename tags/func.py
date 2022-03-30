@@ -84,7 +84,8 @@ def test(modified):
 		print()
 	
 	print('\033[33m'+'TEST START'+'\033[0m\n')
-	student_id = get_config()
+	data = get_config()
+	student_id = data['student_id']
 	tests = []
 	answers = []
 	with open(test_path, 'r') as f:
