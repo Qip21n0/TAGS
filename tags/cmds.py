@@ -3,23 +3,33 @@ from email.policy import default
 from util import *
 import func
 import click
+import glob
+import os
 
 
 @click.group()
 def grp():
-	intro = f"TAGS ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})\n"
+	intro = f"Welcome to TAGS system!!! ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})\n"
 	print(intro)
 	pass
 
-@grp.command()
-@click.option('--name', '-n', default='World')
-def en(name):
-	message = "Hello " + name + "!!!"
-	click.echo(message)
 
 @grp.command()
-def jp():
-	click.echo("KON~~~!!!!!")
+@click.option(
+		'--change',
+		'-c',
+		is_flag=True
+)
+def config(change):
+	if change:
+		change_config()
+	else:
+		home = os.path.expanduser('~/')
+		if home+'tags_config.txt' not in glob.glob(home+'*.txt'):
+			set_config()
+
+		else:
+			click.echo("Input OPTION")
 
 
 @grp.command()
@@ -54,29 +64,25 @@ def unzip(path):
 
 @grp.command()
 @click.option(
-		'--path', 
-		'-p', 
+		'--ext', 
+		'-e', 
 		type=str, 
-		default=None, 
+		default='c', 
 		help=''
 )
-def compile(path):
-	if path is None:
+def compile(ext):
+	if ext is None:
 		click.echo("ERROR")
 	else:
-		func.compile(path)
+		func.compile(ext)
 
 
 @grp.command()
 @click.option(
-		'--path', 
-		'-p', 
-		type=str, 
-		default=None, 
+		'--modified', 
+		'-m', 
+		is_flag=True, 
 		help=''
 )
-def test(path):
-	if path is None:
-		click.echo("ERROR")
-	else:
-		func.test(path)
+def test(modified):
+	func.test(modified)

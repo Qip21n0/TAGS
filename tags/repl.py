@@ -4,12 +4,13 @@ from func import *
 from util import *
 import readline
 import re
+import os
 
 
 
 class TagsCmd(Cmd):
 	intro = re.sub('\t', '', f"""\
-		TAGS ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})
+		Welcome to TAGS system!!! ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})
 		Type \"help\" for more information.
 		Press [Ctl + C] or [Ctl + D] to exit this mode.
 		======================== \
@@ -18,6 +19,9 @@ class TagsCmd(Cmd):
 
 	def __init__(self):
 		super().__init__()
+		home = os.path.expanduser('~/')
+		if home+'tags_config.txt' not in glob.glob(home+'*.txt'):
+			set_config()
 
 	def do_EOF(self, arg):
 		return True
@@ -42,25 +46,20 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_compile(self, path):
-		compile(path)
+	def do_compile(self, ext='c'):
+		if ext == '':
+			ext = 'c'
+		compile(ext)
 
 	def help_compile(self):
 		doc = normalize_func_doc(compile)
 		print(doc)
 
 
-	def do_test(self, path):
-		test(path)
+	def do_test(self, modified):
+		modified = True if modified == 'mdfy' else False
+		test(modified)
 
 	def help_test(self):
 		doc = normalize_func_doc(test)
 		print(doc)
-
-
-	def do_hoge(self, args):
-		for arg in args.split():
-			print(arg)
-
-	def help_hoge(self):
-		print('help: hoge')
