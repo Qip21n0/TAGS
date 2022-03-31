@@ -2,9 +2,9 @@ from util import *
 from tqdm import tqdm
 from zipfile import ZipFile
 import subprocess
-import difflib
 import glob
 import sys
+import os
 
 
 
@@ -43,7 +43,8 @@ def compile(ext):
 	student_id = get_config()
 	if ext == 'cpp' or 'c':
 		for id in tqdm(student_id):
-			command = 'gcc -g -Wall ' + id + '.' + ext + ' -o ' + id
+			command = ['gcc', '-g', '-Wall', id+'.'+ext, '-o', id]
+			#command = 'gcc -g -Wall ' + id + '.' + ext + ' -o ' + id
 			subprocess.run(command, shell=True)
 		print("COMPILE COMPLETED!!")
 		
@@ -106,7 +107,8 @@ def test(modified):
 				break
 			print('\033[32m'+f'TEST[{i}]'+'\033[0m'+'\t\t'+'\033[34m'+f'ANSWER[{i}]'+'\033[0m')
 			print('\t\t'+answers[i], end='')
-			command = 'echo ' + t + ' | ' + './' + id + ' | tee diff.txt'
+			command = ['echo', t, '|', './'+id, '|', 'tee', 'diff.txt']
+			#command = 'echo ' + t + ' | ' + './' + id + ' | tee diff.txt'
 			subprocess.run(command, shell=True)
 			
 			with open('./diff.txt', 'r') as f:
@@ -117,3 +119,5 @@ def test(modified):
 			print()
 		print(f'SCORE: {score}/{len(answers)}')
 		print('=' * 24)
+		
+	os.remove('./diff.txt')
