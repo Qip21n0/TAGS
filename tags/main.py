@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-
 from util import *
 from repl import *
 from cmds import *
@@ -8,7 +5,8 @@ import sys
 
 
 
-def main(args):
+def main():
+	args = sys.argv[1:]
 	if len(args) > 0:
 		grp()
 
@@ -21,4 +19,4 @@ def main(args):
 			pass
 
 if __name__ == '__main__':
-	main(sys.argv[1:])
+	main()
