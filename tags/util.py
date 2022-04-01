@@ -19,6 +19,9 @@ def normalize_func_doc(func):
 def set_config():
 	print("Start setting for TAGS system.")
 	data = {}
+	data['dir'] = os.getcwd()
+	cls = input('Enter the class you are responsible for')
+	data['class'] = cls
 
 	url = input("Enter the url of the class submission page.\n")
 	data['url'] = url
