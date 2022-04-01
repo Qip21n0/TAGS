@@ -1,5 +1,4 @@
 from datetime import datetime as dt
-from email.policy import default
 from util import *
 import func
 import click
