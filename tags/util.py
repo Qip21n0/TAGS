@@ -20,7 +20,7 @@ def set_config():
 	print("Start setting for TAGS system.")
 	data = {}
 	data['dir'] = os.getcwd()
-	cls = input('Enter the class you are responsible for')
+	cls = input('Enter the class you are responsible for\n')
 	data['class'] = cls
 
 	url = input("Enter the url of the class submission page.\n")
@@ -140,7 +140,7 @@ def logging(ext):
 		df.to_csv(path)
 		
 	df = get_log()
-	cwd = glob.glob('./')
+	cwd = glob.glob('./*')
 	exe_list = []
 	new_column = []
 
@@ -154,11 +154,12 @@ def logging(ext):
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
-		if hash not in df[df['id'].isin([id])].values \
-			and hash != 0:
-			exe_list.append(id)
-		else:
-			hash = 0
+			record = df[df['id'].isin([id])].values[0]
+			if hash not in record:
+				exe_list.append(id)
+			else:
+				if hash != record[-1]:
+					hash = 0
 		
 		new_column.append(hash)
 
