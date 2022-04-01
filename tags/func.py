@@ -1,14 +1,14 @@
 from util import *
 from tqdm import tqdm
-from zipfile import ZipFile
 import subprocess
+import shutil
 import glob
 import sys
 import os
 
 
 
-def download(url):
+def download(r):
 	"""
 	This is the test.
 
@@ -27,22 +27,37 @@ def download(url):
 	ValueError
 	    if url is invalid.
 	"""
+	data = get_config()
+	tmp = 'tmp'
+	if tmp not in os.listdir(data['dir']):
+		os.mkdir(tmp)
+
+	download_path = data['dir'] + '/' + tmp
+	url = data['url'] + '&act_report=1&c=' + data['class'] + '&r=' + r
+
 	print("OK")
 
 
 def unzip(path):
 	"""
 	"""
-	with ZipFile(path, 'r') as zip:
-		zip.extractall()
+	data = get_config()
+	dir = data['dir'] + '/tmp'
+	for zip in os.listdir(dir):
+		if '.zip' not in zip:
+			continue
+
+		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
+		shutil.unpack_archive(dir+'/'+zip, data['dir']+'/'+R+'/'+zip)
 
 
 def compile(ext):
 	"""
 	"""
-	student_id = get_config()
+	student_id = logging(ext)
 	if ext == 'cpp' or 'c':
 		for id in tqdm(student_id):
+			id = str(id)
 			command = ['gcc', '-g', '-Wall', id+'.'+ext, '-o', id]
 			#command = 'gcc -g -Wall ' + id + '.' + ext + ' -o ' + id
 			subprocess.run(command, shell=True)
@@ -107,6 +122,7 @@ def test(modified):
 				break
 			print('\033[32m'+f'TEST[{i}]'+'\033[0m'+'\t\t'+'\033[34m'+f'ANSWER[{i}]'+'\033[0m')
 			print('\t\t'+answers[i], end='')
+			id = str(id)
 			command = ['echo', t, '|', './'+id, '|', 'tee', 'diff.txt']
 			#command = 'echo ' + t + ' | ' + './' + id + ' | tee diff.txt'
 			subprocess.run(command, shell=True)
