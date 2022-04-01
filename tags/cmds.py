@@ -48,18 +48,8 @@ def download(r):
 
 
 @grp.command()
-@click.option(
-		'--path', 
-		'-p', 
-		type=str, 
-		default=None, 
-		help=''
-)
-def unzip(path):
-	if path is None:
-		click.echo("ERROR")
-	else:
-		func.unzip(path)
+def unzip():
+	func.unzip()
 
 
 @grp.command()
