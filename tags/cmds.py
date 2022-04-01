@@ -1,6 +1,6 @@
 from datetime import datetime as dt
-from util import *
-import func
+from tags.util import *
+import tags.func as func
 import click
 import glob
 import os

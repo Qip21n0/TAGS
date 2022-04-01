@@ -1,6 +1,6 @@
-from util import *
-from repl import *
-from cmds import *
+from tags.util import *
+from tags.repl import *
+from tags.cmds import *
 import sys
 
 

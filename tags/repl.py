@@ -1,7 +1,7 @@
 from datetime import datetime as dt
 from cmd import Cmd
-from func import *
-from util import *
+from tags.func import *
+from tags.util import *
 import subprocess
 import readline
 import re

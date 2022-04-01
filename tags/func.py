@@ -1,4 +1,4 @@
-from util import *
+from tags.util import *
 from tqdm import tqdm
 import subprocess
 import shutil
