@@ -30,8 +30,8 @@ class TagsCmd(Cmd):
 		return None
 
 
-	def do_download(self, url):
-		download(url)
+	def do_download(self, r):
+		download(r)
 
 	def help_download(self):
 		doc = normalize_func_doc(download)

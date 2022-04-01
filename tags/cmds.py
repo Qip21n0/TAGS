@@ -34,17 +34,17 @@ def config(change):
 
 @grp.command()
 @click.option(
-		'--url', 
-		'-u', 
+		'--R', 
+		'-r', 
 		type=str, 
 		default=None, 
 		help=''
 )
-def download(url):
-	if url is None:
+def download(r):
+	if r is None:
 		click.echo("ERROR")
 	else:
-		func.download(url)
+		func.download(r)
 
 
 @grp.command()
