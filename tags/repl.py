@@ -2,6 +2,7 @@ from datetime import datetime as dt
 from cmd import Cmd
 from func import *
 from util import *
+import subprocess
 import readline
 import re
 import os
@@ -29,6 +30,15 @@ class TagsCmd(Cmd):
 	def emptyline(self):
 		return None
 
+	def do_cd(self, dir):
+		if dir == '':
+			print("ERROR: no directory you want to move to.")
+		else:
+			os.chdir(dir)
+
+	def do_ls(self, arg):
+		subprocess.run('ls -al', shell=True)
+
 
 	def do_download(self, r):
 		download(r)
@@ -38,15 +48,15 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_unzip(self, path):
-		unzip(path)
+	def do_unzip(self, arg):
+		unzip()
 
 	def help_unzip(self):
 		doc = normalize_func_doc(unzip)
 		print(doc)
 
 
-	def do_compile(self, ext='c'):
+	def do_compile(self, ext):
 		if ext == '':
 			ext = 'c'
 		compile(ext)
