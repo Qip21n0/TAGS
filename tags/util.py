@@ -1,3 +1,8 @@
+from datetime import datetime
+from getpass import getpass
+import pandas as pd
+import hashlib
+import glob
 import json
 import sys
 import re
@@ -26,8 +31,8 @@ def set_config():
 		if id == id_:
 			break
 	while 1:
-		psswd = input("Enter your student password.\n")
-		psswd_ = input("Enter your student password again.\n")
+		psswd = getpass("Enter your student password.\n")
+		psswd_ = getpass("Enter your student password again.\n")
 		print()
 		if psswd == psswd_:
 			break
@@ -78,8 +83,8 @@ def change_config():
 			if id == id_:
 				break
 		while 1:
-			psswd = input("Enter new your student password.\n")
-			psswd_ = input("Enter new your student password again.\n")
+			psswd = getpass("Enter new your student password.\n")
+			psswd_ = getpass("Enter new your student password again.\n")
 			print()
 			if psswd == psswd_:
 				break
@@ -111,3 +116,52 @@ def change_config():
 
 	with open(PATH, 'w') as f:
 		json.dump(data, f, indent=4)
+
+
+def get_log():
+	path = './.log/log.csv'
+	with open(path, 'r') as f:
+		df = pd.read_csv(f, index_col=0)
+
+	return df
+
+
+def logging(ext):
+	data = get_config()
+	student_id = data['student_id']
+
+	path = './.log/log.csv'
+	if path not in glob.glob('./.log/*'):
+		df = pd.DataFrame(student_id, columns=['id'])
+		os.mkdir('.log')
+		df.to_csv(path)
+		
+	df = get_log()
+	cwd = glob.glob('./')
+	exe_list = []
+	new_column = []
+
+	for id in student_id:
+		code = './' + str(id) + '.' + ext
+
+		if code not in cwd:
+			hash = 0
+		else:
+			with open(code, 'r') as f:
+				content = f.read()
+				hash = hashlib.sha256(content.encode()).hexdigest()
+		
+		if hash not in df[df['id'].isin([id])].values \
+			and hash != 0:
+			exe_list.append(id)
+		else:
+			hash = 0
+		
+		new_column.append(hash)
+
+	t = datetime.today().strftime('%Y-%m-%d')
+	df[t] = new_column
+
+	df.to_csv(path)
+
+	return exe_list
