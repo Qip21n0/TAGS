@@ -38,7 +38,7 @@ def download(r):
 	print("OK")
 
 
-def unzip(path):
+def unzip():
 	"""
 	"""
 	data = get_config()
@@ -48,7 +48,8 @@ def unzip(path):
 			continue
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		shutil.unpack_archive(dir+'/'+zip, data['dir']+'/'+R+'/'+zip)
+		shutil.unpack_archive(dir+'/'+zip, data['dir']+'/'+R)
+		os.remove(dir+'/'+zip)
 
 
 def compile(ext):
@@ -58,8 +59,8 @@ def compile(ext):
 	if ext == 'cpp' or 'c':
 		for id in tqdm(student_id):
 			id = str(id)
-			command = ['gcc', '-g', '-Wall', id+'.'+ext, '-o', id]
-			#command = 'gcc -g -Wall ' + id + '.' + ext + ' -o ' + id
+			#command = ['gcc', '-g', '-Wall', id+'.'+ext, '-o', id]
+			command = 'gcc -g -Wall ' + id + '.' + ext + ' -o ' + id
 			subprocess.run(command, shell=True)
 		print("COMPILE COMPLETED!!")
 		
@@ -123,8 +124,8 @@ def test(modified):
 			print('\033[32m'+f'TEST[{i}]'+'\033[0m'+'\t\t'+'\033[34m'+f'ANSWER[{i}]'+'\033[0m')
 			print('\t\t'+answers[i], end='')
 			id = str(id)
-			command = ['echo', t, '|', './'+id, '|', 'tee', 'diff.txt']
-			#command = 'echo ' + t + ' | ' + './' + id + ' | tee diff.txt'
+			#command = ['echo', t, '|', './'+id, '|', 'tee', 'diff.txt']
+			command = 'echo ' + t + ' | ' + './' + id + ' | tee diff.txt'
 			subprocess.run(command, shell=True)
 			
 			with open('./diff.txt', 'r') as f:
