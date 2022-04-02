@@ -13,6 +13,10 @@ setuptools.setup(
 		'click',
 		'tqdm',
 		'pandas',
+        'selenium',
+        'chromedriver-binary',
+        'webdriber_manager',
+        'pyautogui',
 	], 
     packages=setuptools.find_packages(),
     entry_points = {
