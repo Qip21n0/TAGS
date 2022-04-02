@@ -4,13 +4,12 @@ from tags.func import *
 from tags.util import *
 import subprocess
 import readline
-import re
 import os
 
 
 
 class TagsCmd(Cmd):
-	intro = re.sub('\t', '', f"""\
+	intro = normalize_doc(f"""\
 		Welcome to TAGS system!!! ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})
 		Type \"help\" for more information.
 		Press [Ctl + C] or [Ctl + D] to exit this mode.
@@ -40,11 +39,29 @@ class TagsCmd(Cmd):
 		subprocess.run('ls -al', shell=True)
 
 
-	def do_download(self, r):
-		download(r)
+	def do_download(self, report):
+		reports = report.split()
+		for report in reports:
+			download(report)
 
 	def help_download(self):
-		doc = normalize_func_doc(download)
+		doc = normalize_doc("""
+			Download zip files you want.
+			You must enter the number of the assignment 
+			you want to download.
+			
+			Examples
+			--------
+			TAGS>> download T1
+			TAGS>> download E1 E2
+
+			Notes
+			--------
+			You must have Google Chrome installed
+			to this function.
+			For Windows users, it is recommended to 
+			enable WSLg.
+		""")
 		print(doc)
 
 
@@ -52,7 +69,13 @@ class TagsCmd(Cmd):
 		unzip()
 
 	def help_unzip(self):
-		doc = normalize_func_doc(unzip)
+		doc = normalize_doc("""
+			Unzip zip files in the tmp/ directory.
+
+			Examples
+			--------
+			TAGS>> unzip
+		""")
 		print(doc)
 
 
@@ -62,14 +85,35 @@ class TagsCmd(Cmd):
 		compile(ext)
 
 	def help_compile(self):
-		doc = normalize_func_doc(compile)
+		doc = normalize_doc("""
+			Compile c or cpp files.
+			If you design the extension, 
+			the corresponding compiler will 
+			compile the files.
+
+			Examples
+			--------
+			TAGS>> compile
+			TAGS>> compile cpp
+		""")
 		print(doc)
 
 
 	def do_test(self, modified):
-		modified = True if modified == 'mdfy' else False
+		modified = True if modified == 'modify' else False
 		test(modified)
 
 	def help_test(self):
-		doc = normalize_func_doc(test)
+		doc = normalize_doc("""
+			Perform testing with the file describing 
+			multiple tests.
+			Add `modify` to the end of the command 
+			if you want to modify the test file or 
+			answer file.
+
+			Examples
+			--------
+			TAGS>> test
+			TAGS>> test modify
+		""")
 		print(doc)

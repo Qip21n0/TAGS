@@ -1,6 +1,6 @@
 from datetime import datetime as dt
 from tags.util import *
-import tags.func as func
+from tags import func
 import click
 import glob
 import os
@@ -17,7 +17,9 @@ def grp():
 @click.option(
 		'--change',
 		'-c',
-		is_flag=True
+		is_flag=True,
+		help=normalize_doc('Add this option if you want to modify \
+			tags_config.json.')
 )
 def config(change):
 	if change:
@@ -33,17 +35,18 @@ def config(change):
 
 @grp.command()
 @click.option(
-		'--R', 
+		'--report', 
 		'-r', 
 		type=str, 
 		default=None, 
-		help=''
+		help=normalize_doc('The number of the assignment \
+			you want to download (ex. T5, E12)')
 )
-def download(r):
-	if r is None:
-		click.echo("ERROR")
+def download(report):
+	if report is None:
+		click.echo("ERROR: No number of the assignment.")
 	else:
-		func.download(r)
+		func.download(report)
 
 
 @grp.command()
@@ -57,11 +60,11 @@ def unzip():
 		'-e', 
 		type=str, 
 		default='c', 
-		help=''
+		help='Type of the file extension.'
 )
 def compile(ext):
-	if ext is None:
-		click.echo("ERROR")
+	if ext != 'c' or ext != 'cpp':
+		click.echo("ERROR: Designed extension is not 'c' or 'cpp'.")
 	else:
 		func.compile(ext)
 
@@ -71,7 +74,8 @@ def compile(ext):
 		'--modified', 
 		'-m', 
 		is_flag=True, 
-		help=''
+		help=normalize_doc('Add this option if you want to modify \
+			test.txt or answer.txt.')
 )
 def test(modified):
 	func.test(modified)
