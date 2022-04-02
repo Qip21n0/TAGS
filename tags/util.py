@@ -11,12 +11,58 @@ import os
 
 
 PATH = os.path.expanduser('~/') + 'tags_config.json'
+LOG_PATH = './.log/log.csv'
 
-def normalize_func_doc(func):
-	return re.sub('\t', '', func.__doc__)
+
+def normalize_doc(doc):
+	"""
+	Remove the extra tabs.
+
+	Parameters
+	--------
+	doc : str
+	    Text.
+
+	Returns
+	--------
+	normalized_doc : str
+	    Text with tabs removed.
+
+	"""
+	return re.sub('\t', '', doc)
 
 
 def set_config():
+	"""
+	Configure settings.
+
+	Configue the necessary settings to run TAGS.
+	The following is the contents of `tags_config.json`
+	after configuration
+	    data = {
+			"dir": str,
+			"class": str,
+			"url": str,
+			"id": str,
+			"psswd": str,
+			"student_id": [
+				int,
+				int,
+				.
+				.
+				int
+			]
+		}
+
+	Parameters
+	--------
+	None
+
+	Returns
+	--------
+	None
+
+	"""
 	print("Start setting for TAGS system.")
 	data = {}
 	data['dir'] = os.getcwd()
@@ -59,6 +105,19 @@ def set_config():
 
 
 def get_config():
+	"""
+	Get information from the config file.
+
+	Parameters
+	--------
+	None
+
+	Returns
+	--------
+	data : dict
+	    information in the config file.
+
+	"""
 	with open(PATH, 'r') as f:
 		data = json.load(f)
 	
@@ -66,10 +125,22 @@ def get_config():
 
 
 def change_config():
+	"""
+	Change information in the config file.
+
+	Parameters
+	--------
+	None
+
+	Returns
+	--------
+	None
+
+	"""
 	data = get_config()
 
 	print("url: " + data['url'])
-	url = input("If you modify the URL, enter the correct one.")
+	url = input("If you modify the URL, enter the correct one.\n")
 	data['url'] = url
 
 
@@ -122,27 +193,53 @@ def change_config():
 
 
 def get_log():
-	path = './.log/log.csv'
-	with open(path, 'r') as f:
-		df = pd.read_csv(f, index_col=0)
+	"""
+	Get logs from the log file.
 
-	return df
+	Parameters
+	--------
+	None
+
+	Returns
+	--------
+	df : pandas.DataFrame
+	    DataFrame with conveerted the csv file for log
+
+	"""
+	return pd.read_csv(LOG_PATH, index_col=0)
 
 
 def logging(ext):
+	"""
+	Log files.
+
+	Read changes from the hash values of the assignment
+	files and log them.
+
+	Parameters
+	--------
+	ext : str
+	    Type of the file extension to be logged
+
+	Returns
+	--------
+	exe_list : list
+	    List of files to be compiled
+
+	"""
 	data = get_config()
 	student_id = data['student_id']
 
-	path = './.log/log.csv'
-	if path not in glob.glob('./.log/*'):
+	if LOG_PATH not in glob.glob('./.log/*'):
 		df = pd.DataFrame(student_id, columns=['id'])
 		os.mkdir('.log')
-		df.to_csv(path)
+		df.to_csv(LOG_PATH)
 		
 	df = get_log()
 	cwd = glob.glob('./*')
 	exe_list = []
 	new_column = []
+	t = datetime.today().strftime('%Y-%m-%d')
 
 	for id in student_id:
 		code = './' + str(id) + '.' + ext
@@ -154,18 +251,57 @@ def logging(ext):
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
-			record = df[df['id'].isin([id])].values[0]
+			record = df[df['id'].isin([id])].values[0][1:]
+			if t in df.columns:
+				record = record[:-2]
+
 			if hash not in record:
 				exe_list.append(id)
 			else:
-				if hash != record[-1]:
-					hash = 0
+				hash = 1
 		
 		new_column.append(hash)
-
-	t = datetime.today().strftime('%Y-%m-%d')
 	df[t] = new_column
 
-	df.to_csv(path)
+	df.to_csv(LOG_PATH)
 
 	return exe_list
+
+
+def show_log():
+	"""
+	Show a human-readable from the log.
+
+	Parameters
+	--------
+	None
+
+	Returns
+	--------
+	None
+
+	"""
+	data = get_config()
+	student_id = data['student_id']
+	df = get_log()
+
+	for col in df.columns:
+		print(col, end='\t')
+	print()
+
+	for id in student_id:
+		records = df[df['id'].isin([id])].values[0][1:]
+		print(id, end='\t')
+
+		for record in records:
+			record = str(record)
+
+			if record == '0':
+				output = '\033[31m' + 'Not submitted' + '\033[0m'
+			elif record == '1':
+				output = '\033[33m' + 'Not changed' + '\033[0m'
+			else:
+				output = '\033[32m' + 'Submitted!!' + '\033[0m'
+
+			print(output, end='\t')
+		print()
