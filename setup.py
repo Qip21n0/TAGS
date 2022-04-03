@@ -19,7 +19,7 @@ setuptools.setup(
 		'pandas',
         'selenium',
         'chromedriver-binary',
-        'webdriber-manager',
+        'webdriver-manager',
         'pyautogui',
 	], 
     packages=setuptools.find_packages(),
