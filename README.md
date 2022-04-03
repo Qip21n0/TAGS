@@ -1,5 +1,6 @@
 # TAGS
 Commands used by the TA for grading students (TAGS).
+
 Japanese translation is [here](https://github.com/Qip21n0/TAGS/blob/main/README_jp.md)
 
 ## Installation
