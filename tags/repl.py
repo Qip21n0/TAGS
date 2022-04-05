@@ -4,6 +4,7 @@ from tags.func import *
 from tags.util import *
 import subprocess
 import readline
+import glob
 import os
 
 
@@ -115,5 +116,34 @@ class TagsCmd(Cmd):
 			--------
 			TAGS>> test
 			TAGS>> test modify
+		""")
+		print(doc)
+
+
+	def do_show(self, file):
+		if file == '':
+			print("ERROR: no file name")
+		
+		elif file == 'log':
+			show_log()
+		
+		else:
+			files = glob.glob('./'+file+'*')
+			for fname in files:
+				print('\n\033[31m'+f'{fname}'+'\033[0m\n')
+				with open(fname, 'r') as f:
+					print(f.read())
+	
+	def help_show(self):
+		doc = normalize_doc("""
+		Visualize logs and source code.
+		Enter `log` to see the log, or the corresponding file name 
+		to see the source code.
+
+		Examples
+		--------
+		TAGS>> show log
+		TAGS>> show 20220401
+		TAGS>> show 2
 		""")
 		print(doc)

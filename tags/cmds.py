@@ -79,3 +79,8 @@ def compile(ext):
 )
 def test(modified):
 	func.test(modified)
+
+
+@grp.command()
+def show(args):
+	show_log()
