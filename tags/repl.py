@@ -14,7 +14,7 @@ class TagsCmd(Cmd):
 		Welcome to TAGS system!!! ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})
 		Type \"help\" for more information.
 		Press [Ctl + C] or [Ctl + D] to exit this mode.
-		======================== \
+		================================================ \
 		""")
 	prompt = 'TAGS>> '
 
