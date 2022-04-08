@@ -39,7 +39,7 @@ def download(report):
 	if tmp not in os.listdir(data['dir']):
 		os.mkdir(tmp)
 
-	download_path = data['dir'] + '/' + tmp
+	download_path = data['dir'] + SLASH + tmp
 	url = data['url'] + '&act_report=1&c=' + data['class'] + '&r=' + report
 
 	options = webdriver.ChromeOptions()
@@ -91,14 +91,14 @@ def unzip():
 
 	"""
 	data = get_config()
-	dir = data['dir'] + '/tmp'
+	dir = data['dir'] + SLASH + 'tmp'
 	for zip in os.listdir(dir):
 		if '.zip' not in zip:
 			continue
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		shutil.unpack_archive(dir+'/'+zip, data['dir']+'/'+R)
-		os.remove(dir+'/'+zip)
+		shutil.unpack_archive(dir+SLASH+zip, data['dir']+SLASH+R)
+		os.remove(dir + SLASH + zip)
 
 
 def compile(ext):
@@ -154,11 +154,11 @@ def test(modified):
 	None
 
 	"""
-	test_path = './test.txt'
-	answer_path = './answer.txt'
+	test_path = '.' + SLASH + 'test.txt'
+	answer_path = '.' + SLASH + 'answer.txt'
 
-	if test_path not in glob.glob('./*.txt') or \
-		answer_path not in glob.glob('./*.txt') or\
+	if test_path not in glob.glob('.'+SLASH+'*.txt') or \
+		answer_path not in glob.glob('.'+SLASH+'*.txt') or\
 		modified:
 		print("Write some tests & answers.")
 		print("(Example) \ntest <= 1 2 \nanswer <= 4\n")
@@ -202,7 +202,7 @@ def test(modified):
 		print("student: " + '\033[31m'+f'{id}'+'\033[0m\n')
 		score = 0
 		id = str(id)
-		if './'+id not in glob.glob('./*'):
+		if '.'+SLASH+id not in glob.glob('.'+SLASH+'*'):
 			print(f'ERROR: No executable file of student {id}')
 			continue
 
@@ -212,7 +212,7 @@ def test(modified):
 			print('\033[32m'+f'TEST[{i}]'+'\033[0m'+'\t\t'+'\033[34m'+f'ANSWER[{i}]'+'\033[0m')
 			
 			p1 = subprocess.Popen(['echo', t], stdout=subprocess.PIPE)
-			p2 = subprocess.Popen(['./'+id], stdin=p1.stdout, stdout=subprocess.PIPE)
+			p2 = subprocess.Popen(['.'+SLASH+id], stdin=p1.stdout, stdout=subprocess.PIPE)
 			p1.stdout.close()
 			output = p2.communicate()[0].decode()
 

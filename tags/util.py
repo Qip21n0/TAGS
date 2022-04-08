@@ -9,9 +9,9 @@ import re
 import os
 
 
-
-PATH = os.path.expanduser('~/') + 'tags_config.json'
-LOG_PATH = './.log/log.csv'
+SLASH = '/' if os.name == 'posix' else '\\'
+PATH = os.path.expanduser('~') + SLASH + 'tags_config.json'
+LOG_PATH = SLASH.join(['.', '.log', 'log.csv'])
 
 
 def normalize_doc(doc):
@@ -230,9 +230,9 @@ def logging(ext):
 	data = get_config()
 	student_id = data['student_id']
 
-	if LOG_PATH not in glob.glob('./.log/*'):
+	if LOG_PATH not in glob.glob(SLASH.join(['.','.log', '*'])):
 		df = pd.DataFrame(student_id, columns=['id'])
-		os.mkdir('.log')
+		os.mkdir('.log') 
 		df.to_csv(LOG_PATH)
 		
 	df = get_log()
@@ -242,7 +242,7 @@ def logging(ext):
 	t = datetime.today().strftime('%Y-%m-%d')
 
 	for id in student_id:
-		code = './' + str(id) + '.' + ext
+		code = '.' + SLASH + str(id) + '.' + ext
 
 		if code not in cwd:
 			hash = 0

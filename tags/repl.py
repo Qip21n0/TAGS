@@ -20,7 +20,7 @@ class TagsCmd(Cmd):
 
 	def __init__(self):
 		super().__init__()
-		home = os.path.expanduser('~/')
+		home = os.path.expanduser('~'+SLASH)
 		if home+'tags_config.json' not in glob.glob(home+'*.json'):
 			set_config()
 
@@ -37,7 +37,8 @@ class TagsCmd(Cmd):
 			os.chdir(dir)
 
 	def do_ls(self, arg):
-		subprocess.run('ls -al', shell=True)
+		ls = 'ls -al' if os.name == 'posix' else 'dir'
+		subprocess.run(ls, shell=True)
 
 
 	def do_download(self, report):
@@ -128,7 +129,7 @@ class TagsCmd(Cmd):
 			show_log()
 		
 		else:
-			files = glob.glob('./'+file+'*')
+			files = glob.glob('.'+SLASH+file+'*')
 			for fname in files:
 				print('\n\033[31m'+f'{fname}'+'\033[0m\n')
 				with open(fname, 'r') as f:
