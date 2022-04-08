@@ -44,6 +44,8 @@ def download(report):
 
 	options = webdriver.ChromeOptions()
 	options.add_experimental_option('prefs', {'download.default_directory': download_path})
+	options.add_experimental_option('excludeSwitches', ['enable-logging'])
+	options.use_chromium = True
 
 	browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
 	browser.get(url)
