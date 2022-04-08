@@ -1,5 +1,11 @@
 # TAGS
-TAが生徒を割いてする際に用いるコマンド. 
+TAが生徒を採点する際に用いるコマンド. 
+
+## Installation
+pip install via Github
+```bash
+pip install git+https://github.com/Qip21n0/TAGS.git
+```
 
 ## Installation
 Github経由でpip installを行う.
@@ -32,7 +38,7 @@ TAGS>> help
 
 Documented commands (type help <topic>):
 ========================================
-compile  download  help  test  unzip
+compile  download  help  show  test  unzip
 
 Undocumented commands:
 ======================

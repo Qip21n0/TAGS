@@ -3,6 +3,9 @@ Commands used by the TA for grading students (TAGS).
 
 Japanese translation is [here](https://github.com/Qip21n0/TAGS/blob/main/README_jp.md)
 
+## Demo
+![demo](https://github.com/Qip21n0/TAGS/blob/main/gif/demo.gif)
+
 ## Installation
 pip install via Github
 ```bash
@@ -34,7 +37,7 @@ TAGS>> help
 
 Documented commands (type help <topic>):
 ========================================
-compile  download  help  test  unzip
+compile  download  help  show  test  unzip
 
 Undocumented commands:
 ======================
