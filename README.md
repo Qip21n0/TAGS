@@ -50,10 +50,15 @@ If you want to grade with TAGS, you must already have [Google Chrome](https://ww
 ---
 ### For **Windows**
 
-I recommend runnninng TAGS on [WSL](https://docs.microsoft.com/en-us/windows/wsl/install).
+- Command prompt
+  1. Install `python` and `gcc` and `git`
+  2. Install `pyreadline` with pip
+  3. Add the paths for gcc and Python Scripts to the environment variable PATH.
 
-- Windows10 users can use TAGS with [VcXsrv](https://sourceforge.net/projects/vcxsrv/). 
-- Windows11 users can also use [WSLg](https://github.com/microsoft/wslg)
+- WSL
+  1. If `WSLg` is not available, please use `X Server`.
+  2. Install `python` and `pip` and `git` and `python3-tk`
+  3. Install `python-xlib` with pip
 
 ---
 ### For MacOS & Linux

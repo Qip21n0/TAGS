@@ -1,19 +1,16 @@
 # TAGS
 TAが生徒を採点する際に用いるコマンド. 
 
-## Installation
-pip install via Github
-```bash
-pip install git+https://github.com/Qip21n0/TAGS.git
-```
+## デモ
+![demo](https://github.com/Qip21n0/TAGS/blob/main/gif/demo.gif)
 
-## Installation
+## インストール
 Github経由でpip installを行う.
 ```bash
 pip install git+https://github.com/Qip21n0/TAGS.git
 ```
 
-## Description
+## 説明
 TAGSはコマンドとして使えます. 
 ```
 $ tags test --help
@@ -45,20 +42,21 @@ Undocumented commands:
 EOF  cd  ls
 ```
 
-## Notes
+## 注意
 TAGSで採点するには、[Google Chrome](https://www.google.com/intl/ja/chrome/)が既にインストール済みでなければなりません. 
 
 ---
 ### **Windows**の方
 
-[WSL](https://docs.microsoft.com/ja-jp/windows/wsl/install)上でTAGSを使うことをお勧めします.
+- コマンドプロンプト
+  1. `python`と`gcc`, `git`をインストール
+  2. pipを用いて`pyreadline`をインストール
+  3. 環境変数PATHにgccとPythonのScriptsのものを加える
 
-- Windows10ユーザは[VcXsrv](https://sourceforge.net/projects/vcxsrv/)を用いて利用してください. 
-- Windows11ユーザは[WSLg](https://github.com/microsoft/wslg)を用いることもできます.
-
-#### Link
-- [Can't use X-Server in WSL 2 - GitHub Issues #4106](https://github.com/microsoft/WSL/issues/4106)
-- [【WSL2】VcXsrvでUbuntu GUIアプリケーションを実行する【Xサーバー】](https://tamnology.com/wsl2-vcxsrv/)
+- WSL
+  1. `WSLg`が利用できないなら、`X server`を入れてください
+  2. `python`と`pip`, `git`, `python3-tk`をインストール
+  3. pipを用いて`python-xlib`をインストール
 
 ---
 ### MacOSやLinuxの方
