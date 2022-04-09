@@ -284,8 +284,9 @@ def show_log():
 	data = get_config()
 	student_id = data['student_id']
 	df = get_log()
+	print('id', end='\t\t')
 
-	for col in df.columns:
+	for col in df.columns[1:]:
 		print(col, end='\t')
 	print()
 
