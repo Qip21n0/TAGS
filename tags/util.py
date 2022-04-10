@@ -11,7 +11,7 @@ import os
 
 SLASH = '/' if os.name == 'posix' else '\\'
 PATH = os.path.expanduser('~') + SLASH + 'tags_config.json'
-LOG_PATH = SLASH.join(['.', '.log', 'log.csv'])
+LOG_PATH = SLASH.join(['.', '.log', ''])
 
 
 def normalize_doc(doc):
@@ -206,7 +206,9 @@ def get_log():
 	    DataFrame with conveerted the csv file for log
 
 	"""
-	return pd.read_csv(LOG_PATH, index_col=0)
+	data = get_config()
+	path = LOG_PATH + data['id'] + '.csv'
+	return pd.read_csv(path, index_col=0)
 
 
 def logging(ext):
@@ -229,11 +231,12 @@ def logging(ext):
 	"""
 	data = get_config()
 	student_id = data['student_id']
+	path = LOG_PATH + data['id'] + '.csv'
 
-	if LOG_PATH not in glob.glob(SLASH.join(['.','.log', '*'])):
+	if path not in glob.glob(SLASH.join(['.','.log', '*'])):
 		df = pd.DataFrame(student_id, columns=['id'])
 		os.mkdir('.log') 
-		df.to_csv(LOG_PATH)
+		df.to_csv(path)
 		
 	df = get_log()
 	cwd = glob.glob('./*')
@@ -263,7 +266,7 @@ def logging(ext):
 		new_column.append(hash)
 	df[t] = new_column
 
-	df.to_csv(LOG_PATH)
+	df.to_csv(path)
 
 	return exe_list
 
