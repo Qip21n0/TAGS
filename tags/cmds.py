@@ -82,5 +82,5 @@ def test(modified):
 
 
 @grp.command()
-def show(args):
+def show():
 	show_log()
