@@ -121,19 +121,8 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_show(self, file):
-		if file == '':
-			print("ERROR: no file name")
-		
-		elif file == 'log':
-			show_log()
-		
-		else:
-			files = glob.glob('.'+SLASH+file+'*')
-			for fname in files:
-				print('\n\033[31m'+f'{fname}'+'\033[0m\n')
-				with open(fname, 'r') as f:
-					print(f.read())
+	def do_show(self, args):
+		show_log()
 	
 	def help_show(self):
 		doc = normalize_doc("""
