@@ -7,6 +7,8 @@ Japanese translation is [here](https://github.com/Qip21n0/TAGS/blob/main/README_
 ![demo](https://github.com/Qip21n0/TAGS/blob/main/gif/demo.gif)
 
 ## Installation
+Check [Notes](https://github.com/Qip21n0/TAGS#Notes) before installing
+
 pip install via Github
 ```bash
 pip install git+https://github.com/Qip21n0/TAGS.git

@@ -5,6 +5,8 @@ TAが生徒を採点する際に用いるコマンド.
 ![demo](https://github.com/Qip21n0/TAGS/blob/main/gif/demo.gif)
 
 ## インストール
+インストールをする前に[注意](https://github.com/Qip21n0/TAGS/blob/main/README_jp.md#%E6%B3%A8%E6%84%8F)を確認してください.
+
 Github経由でpip installを行う.
 ```bash
 pip install git+https://github.com/Qip21n0/TAGS.git
