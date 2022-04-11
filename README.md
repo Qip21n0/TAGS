@@ -51,13 +51,13 @@ If you want to grade with TAGS, you must already have [Google Chrome](https://ww
 ### For **Windows**
 
 - Command prompt
-  1. Install `python` and `gcc`, `git`
+  1. Install `python`, `gcc` and `git`
   2. Install `pyreadline` with pip
   3. Add the paths for gcc and Python Scripts to the environment variable PATH.
 
 - WSL
   1. If `WSLg` is not available, please use `X Server`
-  2. Install `python` and `pip`, `git`, `python3-tk`
+  2. Install `python`, `pip`, `git` and `python3-tk`
   3. Install `python-xlib` with pip
 
 ---
