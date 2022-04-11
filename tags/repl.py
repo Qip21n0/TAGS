@@ -126,14 +126,10 @@ class TagsCmd(Cmd):
 	
 	def help_show(self):
 		doc = normalize_doc("""
-		Visualize logs and source code.
-		Enter `log` to see the log, or the corresponding file name 
-		to see the source code.
+			Visualize contents of log file.
 
-		Examples
-		--------
-		TAGS>> show log
-		TAGS>> show 20220401
-		TAGS>> show 2
+			Examples
+			--------
+			TAGS>> show
 		""")
 		print(doc)
