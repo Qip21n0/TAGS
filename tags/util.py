@@ -251,7 +251,6 @@ def logging(ext):
 		if code not in cwd:
 			hash = 0
 		else:
-			#subprocess.run("nkf -w "+code+' '+ code, shell=True)
 			with codecs.open(code, 'r', 'euc_jp') as f:
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
