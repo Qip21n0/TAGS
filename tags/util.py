@@ -1,7 +1,7 @@
 from datetime import datetime
 from getpass import getpass
 import pandas as pd
-import codecs
+import subprocess
 import hashlib
 import glob
 import json
@@ -251,7 +251,8 @@ def logging(ext):
 		if code not in cwd:
 			hash = 0
 		else:
-			with codecs.open(code, 'r', 'euc_jp') as f:
+			subprocess.run("nkf -w --overwrite "+code, shell=True)
+			with open(code, 'r') as f:
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
