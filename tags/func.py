@@ -43,6 +43,7 @@ def download(report):
 	url = data['url'] + '&act_report=1&c=' + data['class'] + '&r=' + report
 
 	options = webdriver.ChromeOptions()
+	options.add_argument("--remote-debugging-port=9222") 
 	options.add_experimental_option('prefs', {'download.default_directory': download_path})
 	options.add_experimental_option('excludeSwitches', ['enable-logging'])
 	options.use_chromium = True
