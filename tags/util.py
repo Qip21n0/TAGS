@@ -250,7 +250,7 @@ def logging(ext):
 		if code not in cwd:
 			hash = 0
 		else:
-			with open(code, 'r') as f:
+			with open(code, mode='r', encoding='euc_jp') as f:
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
