@@ -1,3 +1,4 @@
+from asyncio import subprocess
 from datetime import datetime
 from getpass import getpass
 import pandas as pd
@@ -250,7 +251,8 @@ def logging(ext):
 		if code not in cwd:
 			hash = 0
 		else:
-			with open(code, mode='r', encoding='euc_jp') as f:
+			subprocess.run("nkf -w "+code+' '+ code, shell=True)
+			with open(code, 'r') as f:
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
