@@ -218,10 +218,10 @@ def test(modified):
 				p1.stdout.close()
 				output = p2.communicate()[0].decode()
 
-			except UnicodeDecodeError as e:
-				output = e
-			except:
-				output = 'ERROR'
+			except UnicodeDecodeError:
+				output = 'UnicodeDecodeError'
+			except Exception:
+				output = 'Exception'
 
 			print(output+'\t\t'+answers[i])
 			answer = answers[i].split()
