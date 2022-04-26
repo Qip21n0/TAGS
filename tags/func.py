@@ -212,10 +212,16 @@ def test(modified):
 				break
 			print('\033[32m'+f'TEST[{i}]'+'\033[0m'+'\t\t'+'\033[34m'+f'ANSWER[{i}]'+'\033[0m')
 			
-			p1 = subprocess.Popen(['echo', t], stdout=subprocess.PIPE)
-			p2 = subprocess.Popen(['.'+SLASH+id], stdin=p1.stdout, stdout=subprocess.PIPE)
-			p1.stdout.close()
-			output = p2.communicate()[0].decode()
+			try:
+				p1 = subprocess.Popen(['echo', t], stdout=subprocess.PIPE)
+				p2 = subprocess.Popen(['.'+SLASH+id], stdin=p1.stdout, stdout=subprocess.PIPE)
+				p1.stdout.close()
+				output = p2.communicate()[0].decode()
+
+			except UnicodeDecodeError as e:
+				output = e
+			except:
+				output = 'ERROR'
 
 			print(output+'\t\t'+answers[i])
 			answer = answers[i].split()
