@@ -219,9 +219,9 @@ def test(modified):
 				output = p2.communicate()[0].decode()
 
 			except UnicodeDecodeError:
-				output = 'UnicodeDecodeError'
+				output = '\033[33m' + 'UnicodeDecodeError' + '\033[0m'
 			except Exception:
-				output = 'Exception'
+				output = '\033[33m' + 'Exception' + '\033[0m'
 
 			print(output+'\t\t'+answers[i])
 			answer = answers[i].split()
