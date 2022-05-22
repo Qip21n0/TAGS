@@ -1,3 +1,4 @@
+from click import command
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from tqdm import tqdm
@@ -5,7 +6,6 @@ from tags.util import *
 import chromedriver_binary
 import pyautogui
 import subprocess
-import shutil
 import glob
 import time
 import os
@@ -82,7 +82,7 @@ def unzip():
 
 	Unzip and delete all zip files in `tmp/` directory
 
-	Rapameters
+	Parameters
 	--------
 	None
 
@@ -98,7 +98,9 @@ def unzip():
 			continue
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		shutil.unpack_archive(dir+SLASH+zip, data['dir']+SLASH+R)
+		command = ['unzip', '-u', dir+SLASH+zip, '-d', data['dir']+SLASH+R]
+		subprocess.run(command, shell=True)
+		#shutil.unpack_archive(dir+SLASH+zip, data['dir']+SLASH+R)
 		os.remove(dir + SLASH + zip)
 
 
@@ -210,7 +212,7 @@ def test(modified):
 		for i, t in enumerate(tests):
 			if t == '':
 				break
-			print('\033[32m'+f'TEST[{i}]'+'\033[0m'+'\t\t'+'\033[34m'+f'ANSWER[{i}]'+'\033[0m')
+			flag = True
 			
 			try:
 				p1 = subprocess.Popen(['echo', t], stdout=subprocess.PIPE)
@@ -220,12 +222,18 @@ def test(modified):
 
 			except UnicodeDecodeError:
 				output = '\033[33m' + 'UnicodeDecodeError' + '\033[0m'
+				flag = False
 			except Exception:
 				output = '\033[33m' + 'Exception' + '\033[0m'
+				flag = False
 
-			print(output+'\t\t'+answers[i])
+			if flag:
+				print('\033[34m'+f'ANSWER[{i}]'+'\033[0m'+'\t\t'+'\033[32m'+f'TEST[{i}]'+'\033[0m')
+				print(answer[i]+'\t\t'+output)
+			else:
+				print(output)
+
 			answer = answers[i].split()
-			flag = True
 			for a in answer:
 				if a not in output:
 					flag = False
