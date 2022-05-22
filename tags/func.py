@@ -98,7 +98,7 @@ def unzip():
 			continue
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		command = ['unzip', '-u', dir+SLASH+zip, '-d', data['dir']+SLASH+R]
+		command = 'unzip -u ' + dir+SLASH+zip + ' -d ' + data['dir']+SLASH+R
 		subprocess.run(command, shell=True)
 		#shutil.unpack_archive(dir+SLASH+zip, data['dir']+SLASH+R)
 		os.remove(dir + SLASH + zip)
