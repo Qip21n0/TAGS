@@ -305,9 +305,9 @@ def show_log():
 			if record == '0':
 				output = '\033[31m' + 'Not submitted' + '\033[0m'
 			elif record == '1':
-				output = '\033[33m' + 'Not changed' + '\033[0m'
+				output = '\033[33m' + 'Not changed!!' + '\033[0m'
 			else:
-				output = '\033[32m' + 'Submitted!!' + '\033[0m'
+				output = '\033[32m' + 'Submitted!!!!' + '\033[0m'
 
 			print(output, end='\t')
 		print()
