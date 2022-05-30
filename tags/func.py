@@ -99,7 +99,10 @@ def unzip():
 			continue
 
 		old_name = zip
-		new_name = re.findall(r'^([ET][0-9]+_[0-9]+)', zip)[0] + ext
+		new_name = zip.split('.')[0]
+		if '_' not in new_name:
+			new_name += '_txt'
+		new_name += ext
 		zip = new_name
 		os.rename(dir + SLASH + old_name, dir + SLASH + new_name)
 
