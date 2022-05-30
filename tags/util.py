@@ -178,10 +178,14 @@ def change_config():
 	while 1:
 		i = input('[index] <= ')
 		num = input('student number <= ')
-		if i == '' or num == '':
+		if i == '':
 			break
+		elif num == '':
+			i = int(i)
+			student_id.remove(i)
 		else:
 			i = int(i)
+			num = int(num)
 			n = len(student_id)
 			if i < n:
 				student_id[i] = num
