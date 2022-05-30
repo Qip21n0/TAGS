@@ -53,7 +53,7 @@ class TagsCmd(Cmd):
 				filename = path
 				path = './'
 
-		cwd = os.listdir('.')
+		cwd = os.listdir(path)
 		if filename == '':
 			completions = cwd
 		else:
