@@ -94,7 +94,8 @@ def unzip():
 	data = get_config()
 	dir = data['dir'] + SLASH + 'tmp'
 	for zip in os.listdir(dir):
-		if '.zip' not in zip:
+		_, ext = os.path.splitext(zip)
+		if ext != '.zip':
 			continue
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
