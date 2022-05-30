@@ -93,23 +93,20 @@ def unzip():
 	data = get_config()
 	dir = data['dir'] + SLASH + 'tmp'
 	for zip in os.listdir(dir):
-		_, ext = os.path.splitext(zip)
+		old_name, ext = os.path.splitext(zip)
 		if ext != '.zip':
 			os.remove(dir + SLASH + zip)
 			continue
 
-		old_name = zip
+		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
+		destination = data['dir'] + SLASH + R
+		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
+		subprocess.run(command, shell=True)
+
 		new_name = zip.split('.')[0]
 		if '_' not in new_name:
 			new_name += '_txt'
-		new_name += ext
-		zip = new_name
-		print(zip)
-		os.rename(dir + SLASH + old_name, dir + SLASH + new_name)
-
-		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + data['dir']+SLASH+R
-		subprocess.run(command, shell=True)
+		os.rename(destination+SLASH+old_name, destination+SLASH+new_name)
 		os.remove(dir + SLASH + zip)
 
 
