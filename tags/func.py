@@ -98,10 +98,14 @@ def unzip():
 			os.remove(dir + SLASH + zip)
 			continue
 
+		old_name = zip
+		new_name = re.findall(r'^([ET][0-9]+_[0-9]+)', zip) + ext
+		zip = new_name
+		os.rename(dir + SLASH + old_name, dir + SLASH + new_name)
+
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		command = 'unzip -u ' + dir+SLASH+zip + ' -d ' + data['dir']+SLASH+R
+		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + data['dir']+SLASH+R
 		subprocess.run(command, shell=True)
-		#shutil.unpack_archive(dir+SLASH+zip, data['dir']+SLASH+R)
 		os.remove(dir + SLASH + zip)
 
 

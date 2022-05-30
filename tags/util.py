@@ -142,8 +142,8 @@ def change_config():
 
 	print("url: " + data['url'])
 	url = input("If you modify the URL, enter the correct one.\n")
-	data['url'] = url
-
+	if url != '':
+		data['url'] = url
 
 	print("Your ID: " + data['id'])
 	print("Your Password: " + data['psswd'])
@@ -166,19 +166,26 @@ def change_config():
 		data['id'] = id
 		data['psswd'] = psswd
 
+	print("\nSTUDENT NUMBERS")
 	student_id = data['student_id']
 	for i, v in enumerate(student_id):
 		print(f'[{i}]: {v}')
 	
-	print("Enter the index you want to change and the student number.")
-	print("This form stops when a blank character is entered.")
+	print("Enter the index and the student number you want to change.\n")
+	print("If you want to add a student number, enter a number one greater than the maximum of the indexes shown in the index, then enter the student number\n")
+	print("If you want to delete a specific student number, enter its index and leave the student number blank.\n")
+	print("This form stops when the entered index is blank.")
 	while 1:
 		i = input('[index] <= ')
 		num = input('student number <= ')
-		if i == '' or num == '':
+		if i == '':
 			break
+		elif num == '':
+			i = int(i)
+			student_id.remove(i)
 		else:
 			i = int(i)
+			num = int(num)
 			n = len(student_id)
 			if i < n:
 				student_id[i] = num
@@ -240,11 +247,13 @@ def logging(ext):
 		df.to_csv(path)
 		
 	df = get_log()
+	record_num = len(df.columns[1:])
 	cwd = glob.glob('./*')
 	exe_list = []
 	new_column = []
-	t = datetime.today().strftime('%Y-%m-%d')
+	t = datetime.today().strftime('%Y-%m-%d %H:%M')
 
+	additional_list = []
 	for id in student_id:
 		code = '.' + SLASH + str(id) + '.' + ext
 
@@ -256,16 +265,26 @@ def logging(ext):
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
-			record = df[df['id'].isin([id])].values[0][1:]
-			if t in df.columns:
-				record = record[:-2]
+			records = df[df['id'].isin([id])].values
+			if len(records) == 0:
+				records = [0] * record_num
+				additional_list.append(id)
+			else:
+				records = records[0][1:]
 
-			if hash not in record:
+			if t in df.columns:
+				records = records[:-2]
+
+			if hash not in records:
 				exe_list.append(id)
 			else:
 				hash = 1
 		
 		new_column.append(hash)
+
+	for id in additional_list:
+		df.loc[id] = 0
+
 	df[t] = new_column
 
 	df.to_csv(path)
@@ -294,9 +313,14 @@ def show_log():
 	for col in df.columns[1:]:
 		print(col, end='\t')
 	print()
+	record_num = len(df.columns[1:])
 
 	for id in student_id:
-		records = df[df['id'].isin([id])].values[0][1:]
+		records = df[df['id'].isin([id])].values
+		if len(records) == 0:
+			records = ['0'] * record_num
+		else:
+			records = records[0][1:]
 		print(id, end='\t')
 
 		for record in records:
