@@ -1,4 +1,3 @@
-from click import command
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from tqdm import tqdm
@@ -96,6 +95,7 @@ def unzip():
 	for zip in os.listdir(dir):
 		_, ext = os.path.splitext(zip)
 		if ext != '.zip':
+			os.remove(dir + SLASH + zip)
 			continue
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
@@ -105,7 +105,7 @@ def unzip():
 		os.remove(dir + SLASH + zip)
 
 
-def compile(ext):
+def compile(ext, option):
 	"""
 	Compile c or cpp files.
 
@@ -116,6 +116,9 @@ def compile(ext):
 	--------
 	ext : str
 	    Extension type (ex. c cpp)
+
+	option : list
+	    Options to be given at compile time
 
 	Returns
 	--------
@@ -129,13 +132,14 @@ def compile(ext):
 
 	"""
 	student_id = logging(ext)
+	opt = " ".join(option)
 	if ext == 'cpp' or 'c':
 		for id in tqdm(student_id):
 			id = str(id)
 			file = id + '.' + ext
 			compiler = 'gcc' if ext == 'c' else 'g++'
 
-			command = compiler + ' -g -Wall ' + file + ' -o ' + id
+			command = compiler + ' -g -Wall ' + file + ' -o ' + id + ' ' + opt
 			subprocess.run(command, shell=True)
 		print("COMPILE COMPLETED!!")
 		

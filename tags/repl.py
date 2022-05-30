@@ -31,7 +31,10 @@ class TagsCmd(Cmd):
 		return None
 
 	def do_cd(self, dir):
-		if dir == '':
+		cwd = os.listdir('.')
+		cwd.append('.')
+		cwd.append('..')
+		if dir not in cwd:
 			print("ERROR: no directory you want to move to.")
 		else:
 			os.chdir(dir)
@@ -81,10 +84,27 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_compile(self, ext):
-		if ext == '':
+	def do_compile(self, arg):
+		arg_list = arg.split()
+
+		if 'cpp' in arg_list:
+			ext = 'cpp'
+		else:
 			ext = 'c'
-		compile(ext)
+
+		if ext in arg_list:
+			arg_list.remove(ext)
+		
+		option = arg_list.copy()
+		flag = True
+		for opt in option:
+			if '-' != opt[0]:
+				flag = False
+
+		if flag:
+			compile(ext, option)
+		else:
+			print("ERROR: invalid option.")
 
 	def help_compile(self):
 		doc = normalize_doc("""
