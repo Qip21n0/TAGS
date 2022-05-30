@@ -62,11 +62,17 @@ def unzip():
 		default='c', 
 		help='Type of the file extension.'
 )
-def compile(ext):
+@click.option(
+		'--option',
+		'-o',
+		type=list,
+		help='Add an option to put on when compiling'
+)
+def compile(ext, option):
 	if ext != 'c' or ext != 'cpp':
 		click.echo("ERROR: Designed extension is not 'c' or 'cpp'.")
 	else:
-		func.compile(ext)
+		func.compile(ext, option)
 
 
 @grp.command()
