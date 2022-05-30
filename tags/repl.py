@@ -30,6 +30,7 @@ class TagsCmd(Cmd):
 	def emptyline(self):
 		return None
 
+
 	def do_cd(self, line):
 		try:
 			os.chdir(line)
@@ -59,6 +60,7 @@ class TagsCmd(Cmd):
 		else:
 			completions = [f for f in cwd if f.startswith(filename)]
 		return completions
+
 
 	def do_ls(self, arg):
 		ls = 'ls -al' if os.name == 'posix' else 'dir'
