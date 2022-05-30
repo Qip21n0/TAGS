@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 from cmd import Cmd
+from unittest import result
 from tags.func import *
 from tags.util import *
 import subprocess
@@ -59,7 +60,13 @@ class TagsCmd(Cmd):
 			completions = cwd
 		else:
 			completions = [f for f in cwd if f.startswith(filename)]
-		return completions
+
+		result = []
+		for f in completions:
+			if os.path.isdir(f):
+				f = '\033[36m' + f + '\033[0m'
+			result.append(f)
+		return result
 
 
 	def do_ls(self, arg):
