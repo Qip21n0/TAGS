@@ -72,6 +72,7 @@ class TagsCmd(Cmd):
 	def do_cat(self, line):
 		try:
 			subprocess.run("cat "+line, shell=True)
+			print()
 		except:
 			print("ERROR: no files you want to see.")
 	
