@@ -30,12 +30,11 @@ class TagsCmd(Cmd):
 	def emptyline(self):
 		return None
 
-	def do_cd(self, dir):
-		cwd = os.listdir('.') + ['.', '..']
-		if dir not in cwd:
+	def do_cd(self, line):
+		try:
+			os.chdir(line)
+		except FileNotFoundError:
 			print("ERROR: no directory you want to move to.")
-		else:
-			os.chdir(dir)
 
 	def complete_cd(self, text, line, begidx, endidx):
 		line = line.split()
