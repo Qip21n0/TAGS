@@ -112,10 +112,12 @@ class TagsCmd(Cmd):
 			If you design the extension, 
 			the corresponding compiler will 
 			compile the files.
+			You can add options when compiling.
 
 			Examples
 			--------
 			TAGS>> compile
+			TAGS>> compile c -lm
 			TAGS>> compile cpp
 		""")
 		print(doc)
