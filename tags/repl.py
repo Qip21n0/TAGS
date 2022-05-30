@@ -61,12 +61,7 @@ class TagsCmd(Cmd):
 		else:
 			completions = [f for f in cwd if f.startswith(filename)]
 
-		result = []
-		for f in completions:
-			if os.path.isdir(f):
-				f = '\033[36m' + f + '\033[0m'
-			result.append(f)
-		return result
+		return completions
 
 
 	def do_ls(self, arg):

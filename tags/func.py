@@ -238,14 +238,14 @@ def test(modified):
 				flag = False
 
 			if flag:
-				print('\033[31m'+f'ANSWER[{i}]'+'\033[0m')
+				print('\033[32m'+f'ANSWER[{i}]'+'\033[0m')
 				print(answers[i])
-				print('\033[32m'+f'TEST[{i}]'+'\033[0m')
+				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
 				for a in answers[i].split():
 					if a in output:
 						start = output.find(a)
 						end = start + len(a)
-						output = output[:start] + '\033[42m' + output[start:end] + '\033[0m' + output[end:]
+						output = output[:start] + '\033[41m' + output[start:end] + '\033[0m' + output[end:]
 					else:
 						flag = False
 				print(output)
