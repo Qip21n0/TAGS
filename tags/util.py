@@ -243,11 +243,13 @@ def logging(ext):
 		df.to_csv(path)
 		
 	df = get_log()
+	record_num = len(df.columns[1:])
 	cwd = glob.glob('./*')
 	exe_list = []
 	new_column = []
-	t = datetime.today().strftime('%Y-%m-%d')
+	t = datetime.today().strftime('%Y-%m-%d %H:%M')
 
+	additional_list = []
 	for id in student_id:
 		code = '.' + SLASH + str(id) + '.' + ext
 
@@ -259,16 +261,26 @@ def logging(ext):
 				content = f.read()
 				hash = hashlib.sha256(content.encode()).hexdigest()
 		
-			record = df[df['id'].isin([id])].values[0][1:]
-			if t in df.columns:
-				record = record[:-2]
+			records = df[df['id'].isin([id])].values
+			if len(records) == 0:
+				records = [0] * record_num
+				additional_list.append(id)
+			else:
+				records = records[0][1:]
 
-			if hash not in record:
+			if t in df.columns:
+				records = records[:-2]
+
+			if hash not in records:
 				exe_list.append(id)
 			else:
 				hash = 1
 		
 		new_column.append(hash)
+
+	for id in additional_list:
+		df.loc[id] = 0
+
 	df[t] = new_column
 
 	df.to_csv(path)
@@ -297,9 +309,14 @@ def show_log():
 	for col in df.columns[1:]:
 		print(col, end='\t')
 	print()
+	record_num = len(df.columns[1:])
 
 	for id in student_id:
-		records = df[df['id'].isin([id])].values[0][1:]
+		records = df[df['id'].isin([id])].values
+		if len(records) == 0:
+			records = ['0'] * record_num
+		else:
+			records = records[0][1:]
 		print(id, end='\t')
 
 		for record in records:
