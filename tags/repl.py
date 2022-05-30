@@ -91,8 +91,11 @@ class TagsCmd(Cmd):
 			ext = 'cpp'
 		else:
 			ext = 'c'
-		
-		option = arg_list.remove(ext)
+
+		if ext in arg_list:
+			option = arg_list.remove(ext)
+		else:
+			option = arg_list.copy()
 
 		flag = True
 		for opt in option:
