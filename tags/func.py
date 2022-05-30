@@ -212,7 +212,7 @@ def test(modified):
 
 	for id in student_id:
 		print('=' * 32)
-		print("student: " + '\033[31m'+f'{id}'+'\033[0m\n')
+		print("student: " + '\033[34m'+f'{id}'+'\033[0m\n')
 		score = 0
 		id = str(id)
 		if '.'+SLASH+id not in glob.glob('.'+SLASH+'*'):
@@ -238,15 +238,20 @@ def test(modified):
 				flag = False
 
 			if flag:
-				print('\033[34m'+f'ANSWER[{i}]'+'\033[0m'+'\t\t'+'\033[32m'+f'TEST[{i}]'+'\033[0m')
-				print(answer[i]+'\t\t'+output)
+				print('\033[31m'+f'ANSWER[{i}]'+'\033[0m')
+				print(answers[i])
+				print('\033[32m'+f'TEST[{i}]'+'\033[0m')
+				for a in answers[i].split():
+					if a in output:
+						start = output.find(a)
+						end = start + len(a)
+						output = output[:start] + '\033[42m' + output[start:end] + '\033[0m' + output[end:]
+					else:
+						flag = False
+				print(output)
 			else:
 				print(output)
 
-			answer = answers[i].split()
-			for a in answer:
-				if a not in output:
-					flag = False
 			if flag:
 				score += 1
 
