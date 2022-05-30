@@ -17,7 +17,6 @@ class TagsCmd(Cmd):
 		================================================ \
 		""")
 	prompt = 'TAGS>> '
-	cwd = os.listdir('.') + ['.', '..']
 
 	def __init__(self):
 		super().__init__()
@@ -32,16 +31,34 @@ class TagsCmd(Cmd):
 		return None
 
 	def do_cd(self, dir):
-		if dir not in self.cwd:
+		cwd = os.listdir('.') + ['.', '..']
+		if dir not in cwd:
 			print("ERROR: no directory you want to move to.")
 		else:
 			os.chdir(dir)
 
-	def complete_cd(self, arg):
-		if not arg:
-			completions = self.cwd[:-2]
+	def complete_cd(self, text, line, begidx, endidx):
+		line = line.split()
+
+		if len(line) < 2:
+			filename = ''
+			path = './'
+
 		else:
-			completions = [f for f in self.cwd if f.startswith(arg)]
+			path = line[1]
+			if '/' in path:
+				i = path.rfind('/')
+				filename = path[i+1:]
+				path = path[:i]
+			else:
+				filename = path
+				path = './'
+
+		cwd = os.listdir('.')
+		if filename == '':
+			completions = cwd
+		else:
+			completions = [f for f in cwd if f.startswith(filename)]
 		return completions
 
 	def do_ls(self, arg):
