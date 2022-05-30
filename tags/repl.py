@@ -32,6 +32,8 @@ class TagsCmd(Cmd):
 
 	def do_cd(self, dir):
 		cwd = os.listdir('.')
+		cwd.append('.')
+		cwd.append('..')
 		if dir not in cwd:
 			print("ERROR: no directory you want to move to.")
 		else:
