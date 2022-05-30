@@ -104,6 +104,7 @@ def unzip():
 			new_name += '_txt'
 		new_name += ext
 		zip = new_name
+		print(zip)
 		os.rename(dir + SLASH + old_name, dir + SLASH + new_name)
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
