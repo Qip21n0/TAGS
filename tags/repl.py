@@ -1,5 +1,6 @@
 from datetime import datetime as dt
 from cmd import Cmd
+from unittest import result
 from tags.func import *
 from tags.util import *
 import subprocess
@@ -30,18 +31,75 @@ class TagsCmd(Cmd):
 	def emptyline(self):
 		return None
 
-	def do_cd(self, dir):
-		cwd = os.listdir('.')
-		cwd.append('.')
-		cwd.append('..')
-		if dir not in cwd:
-			print("ERROR: no directory you want to move to.")
+
+	def do_cd(self, line):
+		try:
+			os.chdir(line)
+		except FileNotFoundError:
+			print("ERROR: no directories you want to move to.")
+
+	def complete_cd(self, text, line, begidx, endidx):
+		line = line.split()
+
+		if len(line) < 2:
+			filename = ''
+			path = './'
+
 		else:
-			os.chdir(dir)
+			path = line[1]
+			if '/' in path:
+				i = path.rfind('/')
+				filename = path[i+1:]
+				path = path[:i]
+			else:
+				filename = path
+				path = './'
+
+		cwd = os.listdir(path)
+		if filename == '':
+			completions = cwd
+		else:
+			completions = [f for f in cwd if f.startswith(filename)]
+
+		return completions
+
 
 	def do_ls(self, arg):
 		ls = 'ls -al' if os.name == 'posix' else 'dir'
 		subprocess.run(ls, shell=True)
+
+	
+	def do_cat(self, line):
+		try:
+			subprocess.run("cat "+line, shell=True)
+			print()
+		except:
+			print("ERROR: no files you want to see.")
+	
+	def complete_cat(self, text, line, begidx, endidx):
+		line = line.split()
+
+		if len(line) < 2:
+			filename = ''
+			path = './'
+
+		else:
+			path = line[1]
+			if '/' in path:
+				i = path.rfind('/')
+				filename = path[i+1:]
+				path = path[:i]
+			else:
+				filename = path
+				path = './'
+
+		cwd = os.listdir(path)
+		if filename == '':
+			completions = cwd
+		else:
+			completions = [f for f in cwd if f.startswith(filename)]
+
+		return completions
 
 
 	def do_download(self, report):

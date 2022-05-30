@@ -8,6 +8,7 @@ import subprocess
 import glob
 import time
 import os
+import re
 
 
 
@@ -93,19 +94,20 @@ def unzip():
 	data = get_config()
 	dir = data['dir'] + SLASH + 'tmp'
 	for zip in os.listdir(dir):
-		_, ext = os.path.splitext(zip)
+		old_name, ext = os.path.splitext(zip)
 		if ext != '.zip':
 			os.remove(dir + SLASH + zip)
 			continue
 
-		old_name = zip
-		new_name = re.findall(r'^([ET][0-9]+_[0-9]+)', zip) + ext
-		zip = new_name
-		os.rename(dir + SLASH + old_name, dir + SLASH + new_name)
-
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
-		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + data['dir']+SLASH+R
+		destination = data['dir'] + SLASH + R
+		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
 		subprocess.run(command, shell=True)
+
+		new_name = zip.split('.')[0]
+		if '_' not in new_name:
+			new_name += '_txt'
+		os.rename(destination+SLASH+old_name, destination+SLASH+new_name)
 		os.remove(dir + SLASH + zip)
 
 
@@ -211,7 +213,7 @@ def test(modified):
 
 	for id in student_id:
 		print('=' * 32)
-		print("student: " + '\033[31m'+f'{id}'+'\033[0m\n')
+		print("student: " + '\033[34m'+f'{id}'+'\033[0m\n')
 		score = 0
 		id = str(id)
 		if '.'+SLASH+id not in glob.glob('.'+SLASH+'*'):
@@ -237,15 +239,19 @@ def test(modified):
 				flag = False
 
 			if flag:
-				print('\033[34m'+f'ANSWER[{i}]'+'\033[0m'+'\t\t'+'\033[32m'+f'TEST[{i}]'+'\033[0m')
-				print(answer[i]+'\t\t'+output)
+				print('\033[32m'+f'ANSWER[{i}]'+'\033[0m')
+				print(answers[i])
+				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
+
+				for a in answers[i].split():
+					if a in output:
+						output = re.sub(a, '\033[41m' + a + '\033[0m', output)
+					else:
+						flag = False
+				print(output)
 			else:
 				print(output)
 
-			answer = answers[i].split()
-			for a in answer:
-				if a not in output:
-					flag = False
 			if flag:
 				score += 1
 
