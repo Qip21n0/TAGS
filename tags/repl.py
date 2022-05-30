@@ -93,10 +93,9 @@ class TagsCmd(Cmd):
 			ext = 'c'
 
 		if ext in arg_list:
-			option = arg_list.remove(ext)
-		else:
-			option = arg_list.copy()
-
+			arg_list.remove(ext)
+		
+		option = arg_list.copy()
 		flag = True
 		for opt in option:
 			if '-' != opt[0]:
