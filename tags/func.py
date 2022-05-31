@@ -1,3 +1,4 @@
+from audioop import reverse
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from tqdm import tqdm
@@ -243,9 +244,14 @@ def test(modified):
 				print(answers[i])
 				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
 
-				for a in answers[i].split():
+				ans = answers[i].split()
+				ans.sort(reverse=True, key=len)
+				done = ''
+				for a in ans:
 					if a in output:
-						output = re.sub(a, '\033[41m' + a + '\033[0m', output)
+						if a not in done:
+							output = re.sub(a, '\033[41m' + a + '\033[0m', output)
+							done += a
 					else:
 						flag = False
 				print(output)
