@@ -102,13 +102,19 @@ def unzip():
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
 		destination = data['dir'] + SLASH + R
-		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
-		subprocess.run(command, shell=True)
 
 		new_name = zip.split('.')[0]
 		if '_' not in new_name:
 			new_name += '_txt'
-		os.rename(destination+SLASH+old_name, destination+SLASH+new_name)
+
+		if os.path.exists(destination+SLASH+new_name):
+			command = 'unzip -u -j ' + dir+SLASH+zip + ' -d ' + destination+SLASH+new_name
+			subprocess.run(command, shell=True)
+		else:
+			command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
+			subprocess.run(command, shell=True)
+			os.rename(destination+SLASH+old_name, destination+SLASH+new_name)
+		
 		os.remove(dir + SLASH + zip)
 
 
