@@ -338,6 +338,7 @@ def show_log(id):
 		for file in os.listdir(LOG_PATH):
 			file_id = file[:-4]
 			print(file_id, end='\t')
+		return None
 
 	print('id', end='\t\t')
 
