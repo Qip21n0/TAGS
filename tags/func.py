@@ -108,7 +108,7 @@ def unzip():
 			new_name += '_txt'
 
 		if os.path.exists(destination+SLASH+new_name):
-			command = 'unzip -q -u -j ' + dir+SLASH+zip + ' -d ' + destination+SLASH+new_name
+			command = 'unzip -qq -u -j ' + dir+SLASH+zip + ' -d ' + destination+SLASH+new_name
 			subprocess.run(command, shell=True)
 		else:
 			command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
