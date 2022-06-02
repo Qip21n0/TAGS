@@ -88,5 +88,12 @@ def test(modified):
 
 
 @grp.command()
-def show():
-	show_log()
+@click.option(
+		'--id', 
+		'-i', 
+		type=str, 
+		help=normalize_doc('You can specify the ID of the table \
+			you want to see.')
+)
+def show(id):
+	show_log(id)

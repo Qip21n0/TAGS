@@ -265,15 +265,20 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_show(self, args):
-		show_log()
+	def do_show(self, id):
+		if id == '':
+			id = 'all'
+		show_log(id)
 	
 	def help_show(self):
 		doc = normalize_doc("""
 			Visualize contents of log file.
+			If you want to see a specific log, 
+			please do the corresponding ID
 
 			Examples
 			--------
 			TAGS>> show
+			TAGS>> show abc12345
 		""")
 		print(doc)
