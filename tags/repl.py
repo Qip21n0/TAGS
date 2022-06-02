@@ -107,20 +107,10 @@ class TagsCmd(Cmd):
 
 
 	def do_exe(self, line):
-		cwd = os.listdir('.')
-		exe_list = []
-		for file in cwd:
-			p = subprocess.run("file "+file, shell=True, stdout=subprocess.PIPE)
-			output = p.stdout.decode()
-			if 'executable' in output:
-				exe_list.append(file)
-		
-		if line not in exe_list:
+		data = get_config
+		student_id = data['id']
+		if line not in student_id:
 			print("ERROR: No executable file exists for the student number entered.")
-			print("EXECUTABLE FILE LIST")
-			for executable in exe_list:
-				print(executable, end="\t")
-			print()
 		else:
 			subprocess.run('.'+SLASH+line, shell=True)
 			print()
@@ -155,6 +145,9 @@ class TagsCmd(Cmd):
 		cwd = os.listdir(path)
 		exe_or_dir_list = []
 		for file in cwd:
+			if file == '.log' or '.dSYM' in file:
+				continue
+			
 			p = subprocess.run("file "+file, shell=True, stdout=subprocess.PIPE)
 			output = p.stdout.decode()
 			if 'executable' in output or os.path.isdir(file):
