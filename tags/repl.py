@@ -109,8 +109,13 @@ class TagsCmd(Cmd):
 	def do_exe(self, line):
 		data = get_config()
 		student_id = data['id']
-		print(line)
-		if line not in student_id:
+		try:
+			exe_file = int(line)
+		except:
+			print("ERROR: invalid input.")
+			return None
+			
+		if exe_file not in student_id:
 			print("ERROR: No executable file exists for the student number entered.")
 		else:
 			subprocess.run('.'+SLASH+line, shell=True)
