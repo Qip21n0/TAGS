@@ -119,9 +119,11 @@ class TagsCmd(Cmd):
 			print("ERROR: No executable file exists for the student number entered.")
 			print("EXECUTABLE FILE LIST")
 			for executable in exe_list:
-				print(executable, end=" ")
+				print(executable, end="\t")
+			print()
 		else:
 			subprocess.run('.'+SLASH+line, shell=True)
+			print()
 
 	def help_exe(self):
 		doc = normalize_doc("""
