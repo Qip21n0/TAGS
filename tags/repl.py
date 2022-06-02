@@ -107,7 +107,7 @@ class TagsCmd(Cmd):
 
 
 	def do_exe(self, line):
-		data = get_config
+		data = get_config()
 		student_id = data['id']
 		if line not in student_id:
 			print("ERROR: No executable file exists for the student number entered.")
@@ -147,7 +147,7 @@ class TagsCmd(Cmd):
 		for file in cwd:
 			if file == '.log' or '.dSYM' in file:
 				continue
-			
+
 			p = subprocess.run("file "+file, shell=True, stdout=subprocess.PIPE)
 			output = p.stdout.decode()
 			if 'executable' in output or os.path.isdir(file):
