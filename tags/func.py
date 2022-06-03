@@ -250,15 +250,23 @@ def test(modified):
 				print(answers[i])
 				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
 
-				ans = answers[i].split()
-				ans.sort(reverse=True, key=len)
-				done = ''
-				for a in ans:
-					if a in output:
-						if a not in done:
-							output = re.sub(a, '\033[41m' + a + '\033[0m', output)
-							done += a
-					else:
+				answer = answers[i].split()
+				answer.sort(key=len)
+				done = []
+				for ans in answer:
+					colored_ans = ans
+					del_list = []
+					for s in done:
+						if s not in ans:
+							continue
+						colored_ans = re.sub(s, '\033\[41m' + s + '\033\[0m', colored_ans)
+						del_list.append(s)
+					for s in del_list:
+						done.remove(s)
+					output = re.sub(colored_ans, '\033[41m' + ans + '\033[0m', output)
+					done.append(ans)
+					
+					if ans not in output:
 						flag = False
 				print(output)
 			else:
