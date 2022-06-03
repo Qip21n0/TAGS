@@ -307,10 +307,13 @@ def show_log(id):
 	"""
 	data = get_config()
 	student_id = data['student_id']
+
 	if id == data['id']:
 		df = get_log()
+
 	elif os.path.exists(LOG_PATH+id+'.csv'):
 		df = pd.read_csv(LOG_PATH+id+'.csv', index_col=0)
+
 	elif id == 'all':
 		df = pd.DataFrame(student_id, columns=['id'])
 		for file in os.listdir(LOG_PATH):
@@ -332,12 +335,14 @@ def show_log(id):
 				else:
 					normalized_records.append("1")
 			df.iloc[i] = normalized_records
+			
 	else:
 		print("ERROR: the log file for the ID you specified does not exist.")
 		print("IDs you can specify")
 		for file in os.listdir(LOG_PATH):
 			file_id = file[:-4]
 			print(file_id, end='\t')
+		print()
 		return None
 
 	print('id', end='\t\t')
