@@ -248,26 +248,12 @@ def test(modified):
 			if flag:
 				print('\033[32m'+f'ANSWER[{i}]'+'\033[0m')
 				print(answers[i])
-				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
-
 				answer = answers[i].split()
-				answer.sort(key=len)
-				done = []
 				for ans in answer:
-					colored_ans = ans
-					del_list = []
-					for s in done:
-						if s not in ans:
-							continue
-						colored_ans = re.sub(s, '\033\[41m' + s + '\033\[0m', colored_ans)
-						del_list.append(s)
-					for s in del_list:
-						done.remove(s)
-					output = re.sub(colored_ans, '\033[41m' + ans + '\033[0m', output)
-					done.append(ans)
-					
 					if ans not in output:
 						flag = False
+
+				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
 				print(output)
 			else:
 				print(output)
