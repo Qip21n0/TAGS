@@ -68,10 +68,14 @@ class TagsCmd(Cmd):
 		ls = 'ls -al' if os.name == 'posix' else 'dir'
 		subprocess.run(ls, shell=True)
 
+
+	def do_pwd(self, arg):
+		print(os.getcwd())
+
 	
 	def do_cat(self, line):
 		try:
-			subprocess.run("cat "+line, shell=True)
+			subprocess.run("pygmentize -O style=emacs -f console256 -g "+line, shell=True)
 			print()
 		except:
 			print("ERROR: no files you want to see.")
@@ -98,6 +102,67 @@ class TagsCmd(Cmd):
 			completions = cwd
 		else:
 			completions = [f for f in cwd if f.startswith(filename)]
+
+		return completions
+
+
+	def do_exe(self, line):
+		data = get_config()
+		student_id = data['student_id']
+		try:
+			exe_file = int(line)
+		except:
+			print("ERROR: invalid input.")
+			return None
+
+		if exe_file not in student_id:
+			print("ERROR: No executable file exists for the student number entered.")
+		else:
+			subprocess.run('.'+SLASH+line, shell=True)
+			print()
+
+	def help_exe(self):
+		doc = normalize_doc("""
+			Runs the specified executable file.
+			
+			Examples
+			--------
+			TAGS>> exe 19870425
+		""")
+		print(doc)
+
+	def complete_exe(self, text, line, begidx, endidx):
+		line = line.split()
+
+		if len(line) < 2:
+			filename = ''
+			path = './'
+
+		else:
+			path = line[1]
+			if '/' in path:
+				i = path.rfind('/')
+				filename = path[i+1:]
+				path = path[:i]
+			else:
+				filename = path
+				path = './'
+
+		cwd = os.listdir(path)
+		exe_or_dir_list = []
+		for file in cwd:
+			if file == '.log' or '.dSYM' in file:
+				continue
+
+			p = subprocess.run("file "+file, shell=True, stdout=subprocess.PIPE)
+			output = p.stdout.decode()
+			if 'executable' in output or os.path.isdir(file):
+				exe_or_dir_list.append(file)
+
+		if filename == '':
+			completions = exe_or_dir_list
+		else:
+			completions = [f for f in exe_or_dir_list if f.startswith(filename)]
 
 		return completions
 
@@ -201,15 +266,20 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_show(self, args):
-		show_log()
+	def do_show(self, id):
+		if id == '':
+			id = 'all'
+		show_log(id)
 	
 	def help_show(self):
 		doc = normalize_doc("""
 			Visualize contents of log file.
+			If you want to see a specific log, 
+			please do the corresponding ID
 
 			Examples
 			--------
 			TAGS>> show
+			TAGS>> show abc12345
 		""")
 		print(doc)

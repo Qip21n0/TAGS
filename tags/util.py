@@ -292,7 +292,7 @@ def logging(ext):
 	return exe_list
 
 
-def show_log():
+def show_log(id):
 	"""
 	Show a human-readable from the log.
 
@@ -307,7 +307,39 @@ def show_log():
 	"""
 	data = get_config()
 	student_id = data['student_id']
-	df = get_log()
+	if id == data['id']:
+		df = get_log()
+	elif os.path.exists(LOG_PATH+id+'.csv'):
+		df = pd.read_csv(LOG_PATH+id+'.csv', index_col=0)
+	elif id == 'all':
+		df = pd.DataFrame(student_id, columns=['id'])
+		for file in os.listdir(LOG_PATH):
+			additional_df = pd.read_csv(LOG_PATH+file, index_col=0)
+			df = pd.merge(df, additional_df)
+
+		df = pd.concat([df.iloc[:, 0], df.iloc[:, 1:].sort_index(axis=1)], axis=1)
+		row_num = len(df)
+		for i in range(row_num):
+			records_i = df.iloc[i].values[1:]
+			done = set()
+			normalized_records = [df.iloc[i, 0]]
+			for record in records_i:
+				if record in ['0', '1']:
+					normalized_records.append(record)
+				elif record not in done:
+					normalized_records.append(record)
+					done.add(record)
+				else:
+					normalized_records.append("1")
+			df.iloc[i] = normalized_records
+	else:
+		print("ERROR: the log file for the ID you specified does not exist.")
+		print("IDs you can specify")
+		for file in os.listdir(LOG_PATH):
+			file_id = file[:-4]
+			print(file_id, end='\t')
+		return None
+
 	print('id', end='\t\t')
 
 	for col in df.columns[1:]:
@@ -333,5 +365,5 @@ def show_log():
 			else:
 				output = '\033[32m' + 'Submitted!!!!' + '\033[0m'
 
-			print(output, end='\t')
+			print(output, end='\t\t')
 		print()

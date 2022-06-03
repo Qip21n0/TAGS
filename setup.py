@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name="tags",
-    version="0.1.5",
+    version="0.1.6",
     author="Ken Hisanaga",
     author_email="Xenn.1i82@gmail.com",
     description="Commands used by the TA for grading",
@@ -21,6 +21,7 @@ setuptools.setup(
         'chromedriver-binary',
         'webdriver-manager',
         'pyautogui',
+        'Pygments',
 	], 
     packages=setuptools.find_packages(),
     entry_points = {

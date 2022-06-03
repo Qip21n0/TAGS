@@ -1,3 +1,4 @@
+from audioop import reverse
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from tqdm import tqdm
@@ -101,13 +102,19 @@ def unzip():
 
 		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
 		destination = data['dir'] + SLASH + R
-		command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
-		subprocess.run(command, shell=True)
 
 		new_name = zip.split('.')[0]
 		if '_' not in new_name:
 			new_name += '_txt'
-		os.rename(destination+SLASH+old_name, destination+SLASH+new_name)
+
+		if os.path.exists(destination+SLASH+new_name):
+			command = 'unzip -qq -o -j ' + dir+SLASH+zip + ' -d ' + destination+SLASH+new_name
+			subprocess.run(command, shell=True)
+		else:
+			command = 'unzip -q -u ' + dir+SLASH+zip + ' -d ' + destination
+			subprocess.run(command, shell=True)
+			os.rename(destination+SLASH+old_name, destination+SLASH+new_name)
+		
 		os.remove(dir + SLASH + zip)
 
 
@@ -241,13 +248,12 @@ def test(modified):
 			if flag:
 				print('\033[32m'+f'ANSWER[{i}]'+'\033[0m')
 				print(answers[i])
-				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
-
-				for a in answers[i].split():
-					if a in output:
-						output = re.sub(a, '\033[41m' + a + '\033[0m', output)
-					else:
+				answer = answers[i].split()
+				for ans in answer:
+					if ans not in output:
 						flag = False
+
+				print('\033[31m'+f'TEST[{i}]'+'\033[0m')
 				print(output)
 			else:
 				print(output)
