@@ -145,7 +145,8 @@ def compile(ext, option):
 
 	"""
 	data = get_config()
-	student_id = data['student_id'] # logging(ext)
+	student_id = data['student_id']
+	logging(ext)
 	opt = " ".join(option)
 	if ext == 'cpp' or 'c':
 		for id in tqdm(student_id):
