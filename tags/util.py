@@ -243,7 +243,8 @@ def logging(ext):
 
 	if path not in glob.glob(SLASH.join(['.','.log', '*'])):
 		df = pd.DataFrame(student_id, columns=['id'])
-		os.mkdir('.log') 
+		if not os.path.isdir('.log'):
+			os.mkdir('.log')
 		df.to_csv(path)
 		
 	df = get_log()
