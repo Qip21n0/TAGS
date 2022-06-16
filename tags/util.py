@@ -276,10 +276,10 @@ def logging(ext):
 			if t in df.columns:
 				records = records[:-1]
 
-			if hash not in records:
-				exe_list.append(id)
-			else:
+			if hash in records:
 				hash = 1
+			
+			exe_list.append(id)
 		
 		new_column.append(hash)
 

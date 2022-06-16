@@ -100,7 +100,7 @@ def unzip():
 			os.remove(dir + SLASH + zip)
 			continue
 
-		R = 'R' + re.findall(r'^[ET]([0-9]+)', zip)[0]
+		R = 'R' + re.findall(r'^[CET]([0-9]+)', zip)[0]
 		destination = data['dir'] + SLASH + R
 
 		new_name = zip.split('.')[0]
@@ -145,8 +145,7 @@ def compile(ext, option):
 
 	"""
 	data = get_config()
-	student_id = data['student_id']
-	logging(ext)
+	student_id = logging(ext)
 	opt = " ".join(option)
 	if ext == 'cpp' or 'c':
 		for id in tqdm(student_id):
