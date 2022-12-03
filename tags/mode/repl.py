@@ -183,14 +183,14 @@ class TagsCmd(Cmd):
 			print("- All students [1]")
 			print("- Specific student [2]")
 			print("- Cancel [3]")
-			n = input("Enter only one of the number above.")
+			n = input("Enter only one of the number above => ")
 			
 			if n == '1':
 				mode = 'all'
 				break
 			elif n == '2':
 				mode = 'indiv'
-				student_number = input("Enter the student number you want to download.")
+				student_number = input("Enter the student number you want to download => ")
 				if student_number not in self.basic_tags.config_data['student_id']:
 					print("Not valid student number.")
 				else:
