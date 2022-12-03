@@ -20,7 +20,6 @@ setuptools.setup(
         'selenium',
         'chromedriver-binary',
         'webdriver-manager',
-        'pyautogui',
         'Pygments',
 	], 
     packages=setuptools.find_packages(),
