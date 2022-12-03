@@ -4,7 +4,6 @@ from tags.util import *
 from cmd import Cmd
 import subprocess
 import readline
-import re
 import os
 
 
@@ -119,8 +118,8 @@ class TagsCmd(Cmd):
 
 
 	def do_exe(self, line):
-		data = get_config()
-		student_id = data['student_id']
+		self.basic_tags.load('config')
+		student_id = self.basic_tags.config_data['student_id']
 		try:
 			exe_file = int(line)
 		except:
