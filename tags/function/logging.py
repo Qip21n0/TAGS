@@ -12,7 +12,6 @@ import os
 class TAGSLogger(BasicTAGS):
 	def __init__(self):
 		super().__init__()
-		self.load('config')
 		self.log_path = os.path.join('.', '.log')
 
 
@@ -48,7 +47,7 @@ class TAGSLogger(BasicTAGS):
 		record_num = len(df.columns[1:])
 		new_column = []
 		add_list = []
-		t = datetime.today().strftime('%Y-%m-%d %H:%M')
+		t = datetime.datetime.now().strftime('%Y-%m-%d %H:%M')
 
 		for id in student_id:
 			code = 'Not Submitted'
