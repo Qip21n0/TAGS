@@ -7,7 +7,6 @@ class BasicTAGS:
 	def __init__(self):
 		self.home_path = os.path.expanduser('~')
 		self.tags_path = self._get_tags_path()
-		print(self.tags_path)
 		self.config_path = os.path.join(self.tags_path, 'config.json')
 		self.history_path = os.path.join(self.tags_path, 'history.txt')
 		self.last_dir_path = os.path.join(self.tags_path, 'last_dir.txt')
@@ -18,7 +17,7 @@ class BasicTAGS:
 		paths = []
 		for path, _, _ in os.walk(self.home_path):
 			if path.endswith('.tags'):
-				paths.append(path[:-5])
+				paths.append(path[:-6])
 	
 		for path in paths:
 			if path in cwd:
