@@ -1,6 +1,5 @@
 from tags.function.base import BasicTAGS
-from tags.util.setting import get_config
-from tags.function.logging import logging
+from tags.function.logging import TAGSLogger
 from tqdm import tqdm
 import subprocess
 
@@ -25,6 +24,9 @@ class TAGSCompiler(BasicTAGS):
 
 
 	def compile(self):
+		l = TAGSLogger()
+		l.logging()
+		
 		student_id = self.config_data['student_id']
 		for id in tqdm(student_id):
 			str_id = str(id)

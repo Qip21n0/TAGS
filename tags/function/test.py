@@ -1,6 +1,5 @@
 from tags.function.base import BasicTAGS
-from tags.util.setting import get_config
-from tags.util.util import *
+from tags.util import *
 import subprocess
 import glob
 import re

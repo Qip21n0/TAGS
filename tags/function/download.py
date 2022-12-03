@@ -1,6 +1,4 @@
 from tags.function.base import BasicTAGS
-from tags.util.setting import get_config
-from tags.util.util import *
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from tqdm import tqdm

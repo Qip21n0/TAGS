@@ -1,6 +1,5 @@
 from tags.function.base import BasicTAGS
-from tags.util.setting import get_config
-from tags.util.util import Color
+from tags.util import Color
 import pandas as pd
 import subprocess
 import datetime
