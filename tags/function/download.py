@@ -110,7 +110,12 @@ class TAGSDownloader(BasicTAGS):
 			new_dirname = re.findall(r'(.*)-', old_zipfilename)[0]
 			destination = os.path.join(destination_dir, new_dirname)
 
-			command = ['unzip', '-qq', '-o', '-j', zipfile_path, '-d', destination]
-			subprocess.run(command)
+			if os.path.exists(destination):
+				command = ['unzip', '-qq', '-o', '-j', zipfile_path, '-d', destination]
+				subprocess.run(command)
+			else:
+				command = ['unzip', '-q', '-u', zipfile_path, '-d', destination_dir]
+				subprocess.run(command)
+				os.rename(os.path.join(destination_dir, old_zipfilename), destination)
 
 			os.remove(zipfile_path)
