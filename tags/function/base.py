@@ -7,6 +7,7 @@ class BasicTAGS:
 	def __init__(self):
 		self.home_path = os.path.expanduser('~')
 		self.tags_path = self._get_tags_path()
+		print(self.tags_path)
 		self.config_path = os.path.join(self.tags_path, 'config.json')
 		self.history_path = os.path.join(self.tags_path, 'history.txt')
 		self.last_dir_path = os.path.join(self.tags_path, 'last_dir.txt')
