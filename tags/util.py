@@ -66,14 +66,9 @@ def set_config():
 	config_data['url'] = url
 	print()
 
-	while 1:
-		id = input("Enter your "+Color.GREEN+"student ID"+Color.END+". (ex. abc123456) => ")
-		id_ = input("Enter your "+Color.GREEN+"student ID "+Color.END+"again. => ")
-		print()
-		if id == id_:
-			break
-		else:
-			print("No match. Enter again.")
+	id = input("Enter your "+Color.GREEN+"student ID"+Color.END+". (ex. abc123456) => ")
+	config_data['id'] =  urllib.parse.quote(id)
+
 	while 1:
 		passwd = getpass("Enter your student "+Color.GREEN+"password"+Color.END+". => ")
 		passwd_ = getpass("Enter your student "+Color.GREEN+"password "+Color.END+"again. => ")
@@ -82,10 +77,9 @@ def set_config():
 			break
 		else:
 			print("No match. Enter again.")
-	config_data['id'] =  urllib.parse.quote(id)
 	config_data['passwd'] =  urllib.parse.quote(passwd)
 
-
+	print("Check the config your write.")
 	# Check the url os valid.
 	protocol = url.find("://") + 3
 	authorized_url = url[:protocol] + id + ':' + passwd + '@' + url[protocol:]
@@ -96,6 +90,7 @@ def set_config():
 	options.add_argument("--remote-debugging-port=9222") 
 	options.use_chromium = True
 	browser = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+	print()
 
 	browser.get(authorized_url1)
 	title = browser.title
