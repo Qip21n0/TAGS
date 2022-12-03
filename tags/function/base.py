@@ -9,8 +9,8 @@ class BasicTAGS:
 		config_path = os.path.join(tags_path, 'config.json')
 		with open(config_path, 'r') as f:
 			self.config_data = json.load(f)
-		#self.history_path = os.path.join(self.tags_path, 'history.txt')
-		#self.last_dir_path = os.path.join(self.tags_path, 'last_dir.txt')
+		self.history_path = os.path.join(self.tags_path, 'history.txt')
+		self.last_dir_path = os.path.join(self.tags_path, 'last_dir.txt')
 
 	
 	def _get_tags_path(self):
