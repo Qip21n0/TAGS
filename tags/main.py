@@ -1,6 +1,5 @@
-from tags.util import *
-from tags.repl import *
-from tags.cmds import *
+from tags.mode import cmds
+from tags.mode import repl
 import sys
 
 
@@ -8,11 +7,11 @@ import sys
 def main():
 	args = sys.argv[1:]
 	if len(args) > 0:
-		grp()
+		cmds.grp()
 
 	else:
 		try:
-			TagsCmd().cmdloop()
+			repl.TagsCmd().cmdloop()
 		except KeyboardInterrupt:
 			print("Keyboard Interrupt [Ctl + C]\n")
 			print("GoodBye!!!!")
