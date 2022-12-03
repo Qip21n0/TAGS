@@ -1,11 +1,11 @@
 from datetime import datetime as dt
+from tags.function import *
 from tags.util import *
-from tags import func
 import click
 import glob
 import os
 
-
+"""
 @click.group()
 def grp():
 	intro = f"Welcome to TAGS system!!! ({dt.now().strftime('%Y/%m/%d %H:%M:%S')})\n"
@@ -23,7 +23,7 @@ def grp():
 )
 def config(change):
 	if change:
-		change_config()
+		set_config()
 	else:
 		home = os.path.expanduser('~'+SLASH)
 		if home+'tags_config.json' not in glob.glob(home+'*.json'):
@@ -97,3 +97,5 @@ def test(modified):
 )
 def show(id):
 	show_log(id)
+
+"""
