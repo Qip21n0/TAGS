@@ -10,7 +10,6 @@ import os
 class TAGSTester(BasicTAGS):
 	def __init__(self):
 		super().__init__()
-		self.load('config')
 		self.test_path = os.path.join('.', 'test.txt')
 		self.answer_path = os.path.join('.', 'answer.txt')
 

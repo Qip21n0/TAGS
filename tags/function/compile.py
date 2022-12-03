@@ -8,7 +8,6 @@ import subprocess
 class TAGSCompiler(BasicTAGS):
 	def __init__(self, extension, options):
 		super().__init__()
-		self.load('config')
 		self.extension = extension
 		self.options = options
 		self.compiler = self._set_compiler()
