@@ -25,6 +25,8 @@ class TagsCmd(Cmd):
 		except TypeError:
 			set_config()
 			self.basic_tags = BasicTAGS()
+		except Exception as e:
+			print(e)
 
 
 	def do_EOF(self, arg):
@@ -196,7 +198,7 @@ class TagsCmd(Cmd):
 				else:
 					break
 			elif n == '3':
-				break
+				return
 			else:
 				print("Valid numbers are 1, 2, or 3.")
 
