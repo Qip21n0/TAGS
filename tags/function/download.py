@@ -107,7 +107,7 @@ class TAGSDownloader(BasicTAGS):
 
 			zipfile_path = os.path.join(self.download_path, zipfile)
 			destination_dir = os.path.join(self.config_data['dir'], report_num)
-			new_dirname = re.finall(r'(.*)-', old_zipfilename)[0]
+			new_dirname = re.findall(r'(.*)-', old_zipfilename)[0]
 			destination = os.path.join(destination_dir, new_dirname)
 
 			command = ['unzip', '-qq', '-o', '-j', zipfile_path, '-d', destination]
