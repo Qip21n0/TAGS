@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
 
 setuptools.setup(
     name="tags",
-    version="0.1.7",
+    version="0.9.9-dev",
     author="Ken Hisanaga",
     author_email="Xenn.1i82@gmail.com",
     description="Commands used by the TA for grading",
