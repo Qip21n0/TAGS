@@ -79,6 +79,7 @@ class TAGSLogger(BasicTAGS):
 					records = records[:-1]
 
 				# Check if the same log already exists.
+				print(records)
 				if hash in records:
 					hash = 1
 			
