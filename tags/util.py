@@ -119,7 +119,7 @@ def set_config():
 
 		if '.tags' not in os.listdir(cwd):
 			os.mkdir('.tags')
-		config_path = os.path.join(cwd, '.tags')
+		config_path = os.path.join(cwd, '.tags', 'config.json')
 		with open(config_path, 'w') as f:
 			json.dump(config_data, f, indent=4)
 
