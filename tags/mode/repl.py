@@ -120,7 +120,6 @@ class TagsCmd(Cmd):
 
 
 	def do_exe(self, line):
-		self.basic_tags.load('config')
 		student_id = self.basic_tags.config_data['student_id']
 		try:
 			exe_file = int(line)
