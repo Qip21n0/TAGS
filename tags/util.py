@@ -136,3 +136,13 @@ def normalize_doc(doc):
 
 	"""
 	return re.sub('\t', '', doc)
+
+
+
+def get_tags_path():
+	home_path = os.path.expanduser('~')
+	cwd = os.getcwd()
+
+	for path, _, _ in os.walk(home_path):
+		if path.endswith('.tags') and path[:-6] in cwd:
+			return path

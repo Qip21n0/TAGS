@@ -20,13 +20,10 @@ class TagsCmd(Cmd):
 
 	def __init__(self):
 		super().__init__()
-		try:
-			self.basic_tags = BasicTAGS()
-		except TypeError:
+		self.tags_path = get_tags_path()
+		if self.tags_path is None:
 			set_config()
-			self.basic_tags = BasicTAGS()
-		except Exception as e:
-			print(e)
+		self.basic_tags = BasicTAGS(self.tags_path)
 
 
 	def do_EOF(self, arg):
