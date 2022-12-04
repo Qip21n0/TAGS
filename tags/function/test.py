@@ -63,6 +63,10 @@ class TAGSTester(BasicTAGS):
 		student_id = self.config_data['student_id']
 		is_exefile = lambda filename: filename.isdecimal() and filename.isascii()
 		for id in student_id:
+			print('=' * 32)
+			print("student: " + Color.CYAN +f'{id}'+ Color.END +'\n')
+			score = 0
+			
 			exefile = 'Not Exists'
 			candidates = glob.glob(str(id)+'*')
 			for candidate in candidates:
@@ -72,9 +76,6 @@ class TAGSTester(BasicTAGS):
 				print(f'ERROR: No executable file of student {id}')
 				continue
 			
-			print('=' * 32)
-			print("student: " + Color.CYAN +f'{id}'+ Color.END +'\n')
-			score = 0
 			for i, test in enumerate(tests):
 				if test == '':
 					break
