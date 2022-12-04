@@ -66,7 +66,7 @@ class TAGSTester(BasicTAGS):
 			print('=' * 32)
 			print("student: " + Color.CYAN +f'{id}'+ Color.END +'\n')
 			score = 0
-			
+
 			exefile = 'Not Exists'
 			candidates = glob.glob(str(id)+'*')
 			for candidate in candidates:
@@ -88,7 +88,7 @@ class TAGSTester(BasicTAGS):
 					output, _ = p2.communicate(timeout=exetime)
 
 				except subprocess.TimeoutExpired:
-					output = Color.YELLOW + 'TimeOutXxpired' + Color.END
+					output = Color.YELLOW + 'TimeOutExpired' + Color.END
 					is_correct = False
 
 				except UnicodeDecodeError:
