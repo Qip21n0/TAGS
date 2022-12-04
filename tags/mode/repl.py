@@ -264,6 +264,7 @@ class TagsCmd(Cmd):
 			if arg[0] == 'modify':
 				t.modify()
 			elif arg[0].isdecimal():
+				print(arg)
 				exetime = int(arg[0])
 				t.test(exetime)
 			else:
