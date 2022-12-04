@@ -55,6 +55,7 @@ class TAGSLogger(BasicTAGS):
 			for candidate in candidates:
 				if os.path.isfile(candidate):
 					code = candidate
+					break
 
 			if code == 'Not Submitted':
 				hash = 0
@@ -66,20 +67,22 @@ class TAGSLogger(BasicTAGS):
 					hash = hashlib.sha256(content.encode()).hexdigest()
 			
 				records = df[df['id'].isin([id])].values
+				print(f"1: {records}")
 				# If not logged, add to the list for addition
 				if len(records) == 0:
-					records = [0] * record_num
+					records = ['0'] * record_num
 					add_list.append(id)
 				else:
 					records = records[0][1:]
+				print(f"2: {records}")
 
 				# If Compilation run at the same time, a warning is issued and the newer log overwrites the older one.
 				if t in df.columns:
 					print("Warning!!: Compilation should be run after a period os time.")
 					records = records[:-1]
+				print(f"3: {records}")
 
 				# Check if the same log already exists.
-				print(records)
 				if hash in records:
 					hash = 1
 			
