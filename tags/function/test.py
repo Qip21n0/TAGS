@@ -93,7 +93,9 @@ class TAGSTester(BasicTAGS):
 				except UnicodeDecodeError:
 					output = Color.YELLOW + 'UnicodeDecodeError' + Color.END
 					is_correct = False
-				except Exception:
+
+				except Exception as e:
+					print(e)
 					output = Color.YELLOW + 'Exception' + Color.END
 					is_correct = False
 
