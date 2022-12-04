@@ -257,6 +257,7 @@ class TagsCmd(Cmd):
 
 	def do_test(self, _, *arg):
 		t = TAGSTester(self.tags_path)
+		print(arg)
 		if len(arg) == 0:
 			t.test()
 
@@ -264,7 +265,6 @@ class TagsCmd(Cmd):
 			if arg[0] == 'modify':
 				t.modify()
 			elif arg[0].isdecimal():
-				print(arg)
 				exetime = int(arg[0])
 				t.test(exetime)
 			else:
