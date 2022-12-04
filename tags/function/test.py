@@ -84,7 +84,7 @@ class TAGSTester(BasicTAGS):
 					p1 = subprocess.Popen(['echo', test], stdout=subprocess.PIPE)
 					p2 = subprocess.Popen([exefile], text=True, stdin=p1.stdout, stdout=subprocess.PIPE)
 					p1.stdout.close()
-					output = p2.communicate(timeout=exetime)
+					output, _ = p2.communicate(timeout=exetime)
 
 				except subprocess.TimeoutExpired:
 					output = Color.YELLOW + 'TimeOutXxpired' + Color.END
