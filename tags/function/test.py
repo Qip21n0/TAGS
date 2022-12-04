@@ -63,7 +63,6 @@ class TAGSTester(BasicTAGS):
 		student_id = self.config_data['student_id']
 		is_exefile = lambda filename: filename.isdecimal() and filename.isascii()
 		for id in student_id:
-			print('=' * 32)
 			print("student: " + Color.CYAN +f'{id}'+ Color.END +'\n')
 			score = 0
 
@@ -74,6 +73,7 @@ class TAGSTester(BasicTAGS):
 					exefile = os.path.join('.', candidate)
 			if exefile == 'Not Exists':
 				print(f'ERROR: No executable file of student {id}')
+				print('=' * 50)
 				continue
 			
 			for i, test in enumerate(tests):
@@ -116,6 +116,7 @@ class TAGSTester(BasicTAGS):
 
 				print()
 			print(f'SCORE: {score}/{len(answers)}')
+			print('=' * 50)
 
 
 	def evaluate(self, output, answer):
