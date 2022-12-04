@@ -257,11 +257,10 @@ class TagsCmd(Cmd):
 
 	def do_test(self, *arg):
 		t = TAGSTester(self.tags_path)
-		if len(arg) == 0:
-			t.test()
-
-		elif len(arg) == 1:
-			if arg[0] == 'modify':
+		if len(arg) == 1:
+			if arg[0] == '':
+				t.test()
+			elif arg[0] == 'modify':
 				t.modify()
 			elif arg[0].isdecimal():
 				exetime = int(arg[0])
