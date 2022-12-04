@@ -49,7 +49,6 @@ class TAGSTester(BasicTAGS):
 		if not self.exists():
 			self.modify()
 
-		print('TEST delimiter')
 		tests = []
 		with open(self.test_path, 'r') as f:
 			lines = f.read()
@@ -65,7 +64,7 @@ class TAGSTester(BasicTAGS):
 		is_exefile = lambda filename: filename.isdecimal() and filename.isascii()
 		for id in student_id:
 			exefile = 'Not Exists'
-			candidates = glob.glob(os.path.join('.', str(id)+'.*'))
+			candidates = glob.glob(str(id)+'*')
 			for candidate in candidates:
 				if is_exefile(candidate):
 					exefile = candidate
