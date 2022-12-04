@@ -34,14 +34,16 @@ class TAGSLogger(BasicTAGS):
 
 		"""
 		student_id = self.config_data['student_id']
-		path = os.path.join(self.log_path, self.config_data['id']+'.csv')
+		csv_file = self.config_data['id']+'.csv'
+		#path = os.path.join(self.log_path, self.config_data['id']+'.csv')
 
 		if not os.path.exists(self.log_path):
 			os.mkdir('.log')
 
-		if path not in os.listdir(self.log_path):
+		if csv_file not in os.listdir(self.log_path):
 			df = pd.DataFrame(student_id, columns=['id'])
-			df.to_csv(path)
+			csv_path = os.path.join(self.log_path, csv_file)
+			df.to_csv(csv_path)
 			
 		df = self.get_log()
 		record_num = len(df.columns[1:])
@@ -66,21 +68,18 @@ class TAGSLogger(BasicTAGS):
 					content = f.read()
 					hash = hashlib.sha256(content.encode()).hexdigest()
 			
-				records = df[df['id'].isin([id])].values
-				print(f"1: {records}")
+				records = df[df['id'].isin([id])].values.astype(str)
 				# If not logged, add to the list for addition
 				if len(records) == 0:
-					records = ['0'] * record_num
+					records = [0] * record_num
 					add_list.append(id)
 				else:
 					records = records[0][1:]
-				print(f"2: {records}")
 
 				# If Compilation run at the same time, a warning is issued and the newer log overwrites the older one.
 				if t in df.columns:
 					print("Warning!!: Compilation should be run after a period os time.")
 					records = records[:-1]
-				print(f"3: {records}")
 
 				# Check if the same log already exists.
 				if hash in records:
@@ -92,7 +91,8 @@ class TAGSLogger(BasicTAGS):
 			df.loc[id] = 0
 
 		df[t] = new_column
-		df.to_csv(path)
+		csv_path = os.path.join(self.log_path, csv_file)
+		df.to_csv(csv_path)
 
 
 	def get_log(self):
