@@ -199,7 +199,7 @@ class TagsCmd(Cmd):
 				print("Valid numbers are 1, 2, or 3.")
 
 		report_nums = report_num.split()
-		d = TAGSDownloader()
+		d = TAGSDownloader(self.tags_path)
 		d.download(report_nums, student_number, mode)
 
 	def help_download(self):
@@ -235,7 +235,7 @@ class TagsCmd(Cmd):
 			arg_list.remove(extension)
 		
 		options = ' '.join(arg_list)
-		c = TAGSCompiler(extension, options)
+		c = TAGSCompiler(self.tags_path, extension, options)
 		c.compile()
 
 	def help_compile(self):
@@ -256,7 +256,7 @@ class TagsCmd(Cmd):
 
 
 	def do_test(self, _, *arg):
-		t = TAGSTester()
+		t = TAGSTester(self.tags_path)
 		if len(arg) == 0:
 			t.test()
 
@@ -292,7 +292,7 @@ class TagsCmd(Cmd):
 	def do_show(self, mode):
 		if mode == '':
 			mode = 'all'
-		l = TAGSLogger()
+		l = TAGSLogger(self.tags_path)
 		l.show_log(mode)
 	
 	def help_show(self):

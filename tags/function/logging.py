@@ -10,8 +10,8 @@ import os
 
 
 class TAGSLogger(BasicTAGS):
-	def __init__(self):
-		super().__init__()
+	def __init__(self, tags_path):
+		super().__init__(tags_path)
 		self.log_path = os.path.join('.', '.log')
 
 

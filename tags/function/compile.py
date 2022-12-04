@@ -6,8 +6,9 @@ import subprocess
 
 
 class TAGSCompiler(BasicTAGS):
-	def __init__(self, extension, options):
-		super().__init__()
+	def __init__(self, tags_path, extension, options):
+		super().__init__(tags_path)
+		self.tags_path = tags_path
 		self.extension = extension
 		self.options = options
 		self.compiler = self._set_compiler()
@@ -23,7 +24,7 @@ class TAGSCompiler(BasicTAGS):
 
 
 	def compile(self):
-		l = TAGSLogger()
+		l = TAGSLogger(self.tags_path)
 		l.logging()
 		
 		student_id = self.config_data['student_id']

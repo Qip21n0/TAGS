@@ -8,8 +8,8 @@ import os
 
 
 class TAGSTester(BasicTAGS):
-	def __init__(self):
-		super().__init__()
+	def __init__(self, tags_path):
+		super().__init__(tags_path)
 		self.test_path = os.path.join('.', 'test.txt')
 		self.answer_path = os.path.join('.', 'answer.txt')
 

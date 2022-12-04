@@ -12,8 +12,8 @@ import os
 
 
 class TAGSDownloader(BasicTAGS):
-	def __init__(self):
-		super().__init__()
+	def __init__(self, tags_path):
+		super().__init__(tags_path)
 		self.download_path = self._set_download_path()
 		self.browser = self._set_browser()
 
