@@ -67,7 +67,7 @@ class TAGSTester(BasicTAGS):
 			candidates = glob.glob(str(id)+'*')
 			for candidate in candidates:
 				if is_exefile(candidate):
-					exefile = candidate
+					exefile = os.path.join('.', candidate)
 			if exefile == 'Not Exists':
 				print(f'ERROR: No executable file of student {id}')
 				continue
