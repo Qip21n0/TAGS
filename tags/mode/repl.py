@@ -255,7 +255,7 @@ class TagsCmd(Cmd):
 		print(doc)
 
 
-	def do_test(self, _, *arg):
+	def do_test(self, *arg):
 		t = TAGSTester(self.tags_path)
 		print(arg)
 		if len(arg) == 0:
