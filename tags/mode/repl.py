@@ -189,6 +189,10 @@ class TagsCmd(Cmd):
 			elif n == '2':
 				mode = 'indiv'
 				student_number = input("Enter the student number you want to download => ")
+				try:
+					student_number = int(student_number)
+				except Exception:
+					student_number = -1
 				if student_number not in self.basic_tags.config_data['student_id']:
 					print("Not valid student number.")
 				else:
