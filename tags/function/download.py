@@ -78,7 +78,7 @@ class TAGSDownloader(BasicTAGS):
 			try:
 				report_initial = report.split('_')[0]
 				extension = report.split('.')[1]
-				url = self.data['url'] + '&act_item=1&s=' + student_id + '&r=' + report_initial + '&i=' + report
+				url = self.config_data['url'] + '&act_item=1&s=' + student_id + '&r=' + report_initial + '&i=' + report
 				url = self._authorized(url)
 				self.browser.get(url)
 				student_code = html.unescape(self.browser.page_source[131:-20])
