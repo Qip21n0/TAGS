@@ -130,8 +130,11 @@ class TagsCmd(Cmd):
 			print("ERROR: No executable file exists for the student number entered.")
 		else:
 			exe_path = os.path.join('.', line)
-			subprocess.run(exe_path, shell=True)
-			print()
+			try:
+				subprocess.run(exe_path, shell=True)
+				print()
+			except KeyboardInterrupt:
+				print("Keyboard Interrupt [Ctl + C]\n")
 
 	def help_exe(self):
 		doc = normalize_doc("""
