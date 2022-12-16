@@ -20,8 +20,10 @@ class TagsCmd(Cmd):
 
 	def __init__(self):
 		super().__init__()
+		print("Searching for the TAGS config file...")
 		self.tags_path = get_tags_path()
 		if self.tags_path is None:
+			print("Create a new TAGS config file because it does not exist.")
 			set_config()
 		self.basic_tags = BasicTAGS(self.tags_path)
 
