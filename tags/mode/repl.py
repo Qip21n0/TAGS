@@ -30,6 +30,8 @@ class TagsCmd(Cmd):
 	def preloop(self):
 		if os.path.exists(self.basic_tags.history_path):
 			readline.read_history_file(self.basic_tags.history_path)
+		else:
+			print(self.basic_tags.history_path)
 
 	
 	def postloop(self):
