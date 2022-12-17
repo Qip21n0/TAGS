@@ -16,6 +16,7 @@ setuptools.setup(
     install_requires=[
         'click',
         'tqdm',
+        'halo',
         'pandas',
         'selenium',
         'chromedriver-binary',
