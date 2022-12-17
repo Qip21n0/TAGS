@@ -20,7 +20,6 @@ class TagsCmd(Cmd):
 
 	def __init__(self):
 		super().__init__()
-		print("Searching for the TAGS config file...")
 		self.tags_path = get_tags_path()
 		if self.tags_path is None:
 			print("Create a new TAGS config file because it does not exist.")
@@ -134,7 +133,7 @@ class TagsCmd(Cmd):
 				subprocess.run(exe_path, shell=True)
 				print()
 			except KeyboardInterrupt:
-				print("Keyboard Interrupt [Ctl + C]\n")
+				print()
 
 	def help_exe(self):
 		doc = normalize_doc("""

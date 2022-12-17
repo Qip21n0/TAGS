@@ -1,6 +1,7 @@
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from getpass import getpass
+from halo import Halo
 import chromedriver_binary
 import urllib
 import json
@@ -142,7 +143,11 @@ def normalize_doc(doc):
 def get_tags_path():
 	home_path = os.path.expanduser('~')
 	cwd = os.getcwd()
+	tags_path = None
 
-	for path, _, _ in os.walk(home_path):
-		if path.endswith('.tags') and path[:-6] in cwd:
-			return path
+	with Halo(text='Searching for the TAGS config file...', spinner='dots'):
+		for path, _, _ in os.walk(home_path):
+			if path.endswith('.tags') and path[:-6] in cwd:
+				tags_path = path
+				break
+	return tags_path
