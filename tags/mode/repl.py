@@ -26,6 +26,16 @@ class TagsCmd(Cmd):
 			set_config()
 		self.basic_tags = BasicTAGS(self.tags_path)
 
+	
+	def preloop(self):
+		if os.path.exists(self.basic_tags.history_path):
+			readline.read_history_file(self.basic_tags.history_path)
+
+	
+	def postloop(self):
+		readline.set_history_length(1000)
+		readline.write_history_file(self.basic_tags.history_path)
+
 
 	def do_EOF(self, arg):
 		return True
